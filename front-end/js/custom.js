@@ -36,7 +36,7 @@ $.ajax({
 
 // User register Method::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 $('#signUp').click(function() {
-preventDefault()//this prevents code breaking when no data is found
+event.preventDefault()//this prevents code breaking when no data is found
   let userName = $('#regUsername').val();
   let email = $('#regEmail').val();
   let password = $('#regPassword').val();
