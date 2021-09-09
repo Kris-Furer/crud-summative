@@ -30,7 +30,7 @@ app.get('/',(req,res)=> res.send('Hello! I am from the backend'))
   console.log(`DBConnectionError:${err.message}`);
 });
 
-// User Methods :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// User Methods :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // register a new user
 app.post('/registerUser',(req,res)=>{
   //checking if user is found in the db already
@@ -51,7 +51,7 @@ app.post('/registerUser',(req,res)=>{
         res.send(result);
       }).catch(err=>res.send(err));
     }
-  })
+  });
 });
 
 //view all users
