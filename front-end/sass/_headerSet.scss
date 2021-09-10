@@ -1,0 +1,15 @@
+@mixin headers {
+  font-family: albiona,sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+@mixin subHeaders {
+  font-family: aileron,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+@mixin bodyCopy {
+  font-family: aileron,sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}

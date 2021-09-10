@@ -1,0 +1,12 @@
+.btn-warning {
+  background-color: $primary;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn-warning:hover {
+  background-color: $primary-hover;
+  border: none;
+  color: white;
+}
