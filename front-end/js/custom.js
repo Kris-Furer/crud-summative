@@ -13,7 +13,7 @@ $.ajax({
   error: function(error) {
     console.log(error);
   }
-}) //ajax Ends
+}); //ajax Ends
 
 
 // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -36,7 +36,7 @@ $.ajax({
 
 // User register Method::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 $('#signUp').click(function() {
-event.preventDefault()//this prevents code breaking when no data is found
+event.preventDefault();//this prevents code breaking when no data is found
   let userName = $('#regUsername').val();
   let email = $('#regEmail').val();
   let password = $('#regPassword').val();
@@ -115,6 +115,7 @@ event.preventDefault()//this prevents code breaking when no data is found
             sessionStorage.setItem('userID', user['_id']);
             sessionStorage.setItem('userName', user['username']);
             sessionStorage.setItem('userEmail', user['email']);
+            window.location = 'landing.html'
 
           }
         }, //success

@@ -1,32 +1,53 @@
+/* import the necessary Bootstrap files */
+
+@import "var.scss";
+
 body {
   font-family: aileron,sans-serif;
-font-weight: 300;
-font-style: normal;
-}
-
-img {
-  max-width:100%;
-}
-
-h1, h2 {
-  font-family: albiona,sans-serif;
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
 }
 
-h3, h4, h5, h6 p {
+img {
+  max-width: 100%;
+}
+
+h1,
+h2 {
+
+  font-weight: 600;
+  font-style: normal;
+}
+
+h3,
+h4,
+h5,
+h6,
+p {
   font-family: aileron,sans-serif;
 }
 
+.orange {
+  color: #f78a30;
+}
+.orange-bg {
+  background-color:#f78a30!important;
+}
+// icons
+.back-arrow {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+}
 
 .landing-logo {
   width: 200px;
-  margin-top:20%;
+  margin-top: 20%;
 }
 
 .login-btn {
-width:100%;
-height:50px;
+  width: 100%;
+  height: 50px;
 }
 
 .sign-log {
@@ -34,6 +55,11 @@ height:50px;
   font-weight: bold;
   cursor: pointer;
 }
+
 .sign-up-form {
   display: none;
+}
+
+.form-group {
+  margin: 10px 0;
 }

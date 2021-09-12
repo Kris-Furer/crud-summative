@@ -124,7 +124,7 @@ app.patch('/updateProduct/:id',(req,res)=>{
       then(result=>{
         res.send(result);
       }).catch(err=> res.send(err));
-    } else{
+    } else {
       res.send('error: product not found')
     }//else
   })
