@@ -5,12 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.typekit.net/jwi1eot.css">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/custom.min.css">
   <title>Product</title>
 </head>
 
 <body>
+  <!-- navbar starts -->
   <nav class="navbar navbar-expand-md navbar-light bg-light" aria-label="Fourth navbar example">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -42,10 +44,15 @@
       </div>
     </div>
   </nav>
+  <!-- navbar ends -->
+
+  <!-- product container starts -->
   <div class="container">
     <div class="product-description p-3">
       <h1>Product Title</h1>
       <h6>located in Wellington</h6>
+
+      <!-- carousel starts -->
       <div id="carouselExampleIndicators" class="carousel slide pb-3 pt-3" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -77,6 +84,8 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      <!-- carousel ends -->
+
       <h5>$ 39.00</h5>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
@@ -85,6 +94,8 @@
         pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
         laborum.
       </p>
+
+      <!-- accordion starts -->
       <div class="accordion pb-3" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
@@ -105,12 +116,14 @@
           </div>
         </div>
       </div>
+      <!-- accordion ends -->
       <div class="d-grid">
         <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Buy
           Now</button>
       </div>
     </div>
   </div>
+  <!-- product container ends -->
 
   <!-- modal content starts -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
