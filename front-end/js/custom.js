@@ -13,7 +13,7 @@ $.ajax({
   error: function(error) {
     console.log(error);
   }
-}) //ajax Ends
+}); //ajax Ends
 
 
 // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -36,7 +36,7 @@ $.ajax({
 
 // User register Method::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 $('#signUp').click(function() {
-event.preventDefault()//this prevents code breaking when no data is found
+event.preventDefault();//this prevents code breaking when no data is found
   let userName = $('#regUsername').val();
   let email = $('#regEmail').val();
   let password = $('#regPassword').val();
@@ -115,6 +115,7 @@ event.preventDefault()//this prevents code breaking when no data is found
             sessionStorage.setItem('userID', user['_id']);
             sessionStorage.setItem('userName', user['username']);
             sessionStorage.setItem('userEmail', user['email']);
+            window.location = 'landing.html';
 
           }
         }, //success
@@ -126,6 +127,10 @@ event.preventDefault()//this prevents code breaking when no data is found
     } //if else
   });
 
+
+
+
+
   // //logout
   // $('#logout').click(function() {
   //   sessionStorage.clear();
@@ -135,6 +140,49 @@ event.preventDefault()//this prevents code breaking when no data is found
   //   location.href = "index.html";
   // });
   // $('.header-user').text(sessionStorage.getItem('userName'));
+
+
+// Add Listing method:::::::::::::::::::::::::::::::::::::::::::
+
+$('#confirmListing').click(function() {
+  event.preventDefault();
+  let listTitle = $('#listTitle').val();
+  let price = $('#listPrice').val();
+  let genre = $('#listGenre').val();
+  let listConsole = $('#listConsole').val();
+  let description = $('#listDescription');
+  let imgUrl = $('#listImg')
+
+  console.log(listTitle , price); //remove after development for security
+
+  if (listTitle == '' || price == '') {
+    alert('Title and price information are required');
+  } else {
+    $.ajax({
+      url: `${url}/loginUser`,
+      type: 'POST',
+      data: {
+        title : listTitle ,
+        price: price,
+        image_url : imgUrl,
+        console:listConsole,
+        genre: genre,
+        description:description
+        // seller:sessionStorage.setItem('userID', user['_id']);
+
+      },
+      success: function(product) {
+        console.log(product+ "wahoo");
+
+
+      }, //success
+      error: function() {
+        console.log('error: cannot call api');
+      } //errror
+
+    }); //ajax
+  } //if else
+});
 
 
 
