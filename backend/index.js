@@ -76,7 +76,7 @@ app.post('/loginUser', (req,res)=>{
   });//findOne
 });//post
 
-// Project Methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Product Methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 //post method to write or create a product in mongodb
 app.post('/addProduct',(req,res)=>{
@@ -90,6 +90,7 @@ app.post('/addProduct',(req,res)=>{
     description:req.body.description,
     seller:req.body.seller,
     itemLocation:req.body.itemLocation,
+
   });
   //save to the database and notify the user
   dbProduct.save().then(result=>{
@@ -159,6 +160,18 @@ app.get('/products/p=:id',(req,res)=>{
     }
   }
 });
+
+app.get(`/products/${genre}`,(req,res)=>{
+  const genre = "Racing"
+  for (let i = 0; i < product.length; i++){
+    if (genre === product[i].genre){
+      res.json(product[i]);
+      console.log(product[i]);
+    }
+  }
+});
+
+
 
 //listening to port
 app.listen(port,()=>console.log(`My fullstack application is listening on port ${port}`))

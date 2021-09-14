@@ -1,1 +1,74 @@
 
+
+@import "colors";
+@import "headerSet";
+@import "buttons";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a{
+  i{
+    text-decoration:none!important;
+    color:inherit;
+  }
+}
+
+
+body {}
+
+h1,
+h2 {
+  @include headers;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  @include subHeaders;
+}
+
+p {
+  @include bodyCopy;
+}
+
+img {
+  max-width: 100%;
+}
+
+.orange {
+  color: #f78a30;
+}
+
+.landing-logo {
+  width: 200px;
+  margin-top: 20%;
+}
+
+.login-btn {
+  width: 100%;
+  height: 50px;
+}
+
+.sign-log {
+  color: #f78a30;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sign-up-form {
+  display: none;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+.back-arrow {
+  font-size:20px;
+  gap:40%;
+}
+

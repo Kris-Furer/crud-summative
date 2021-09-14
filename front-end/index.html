@@ -3,21 +3,76 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://use.typekit.net/jwi1eot.css">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.min.css">
-</head>
 
+</head>
 <body>
 	<h1>Hello Worlds</h1>
 	<p class='blue'></p>
+	<title>Project</title>
+</head>
+<body>
+	<div class="container">
+		<div class="landing-logo mx-auto">
+			<img src="img/retro-stop-full.png" alt="">
+		</div>
+		<div class="welcome text-center my-3">
+			<h3>Welcome Back</h3>
+			<p>log into your account</p>
+		</div>
+
+		<!-- Login Form::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+		<form class='login-form mx-3'>
+			<div class="form-group my-3">
+				<label for="userName">User Name</label>
+				<input type="text" id="userName" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+			</div>
+			<!-- password -->
+			<div class="form-group my-3">
+				<label for="password">Password</label>
+				<input type="password" id="password" class="form-control" placeholder="Password">
+			</div>
+			<!-- login button  -->
+			<button id='login' type="submit" class=" login-btn btn btn-warning btn-block my-3">Log in</button>
+			<p class="text-center mb-5">Don't Have an account? <span id="toSignUp" class="sign-log">Sign Up</span></p>
+		</form>
 
 
+		<!-- Sign Up form ::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
+		<form class='sign-up-form mx-3'>
+			<div class="form-group my-3">
+				<label for="reg-username">Username</label>
+				<input type="text" class="form-control" id="regUsername" aria-describedby="emailHelp"
+					placeholder="Enter Username">
+			</div>
 
 
 
 
 	<!-- Scripts -->
+
+
+			<!-- <div class="form-group my-3">
+				<label for="confirmPass">Confirm Password</label>
+				<input type="password" class="form-control" id="confirmPass" placeholder="Password">
+			</div> -->
+				
+			<button id="signUp" type="submit" class="login-btn btn btn-warning btn-block my-3">Sign Up</button>
+			<p class="text-center mb-5">Already have an account? <span id='toLogin' class="sign-log">Log in</span></p>
+		</form>
+
+
+
+
+
+		<!-- Container Ends -->
+	</div>
+
+	<!-- Scripts :::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
 
 	<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 	<script src="node_modules/jquery/dist/jquery.min.js">
