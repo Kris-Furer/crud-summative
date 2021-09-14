@@ -10,3 +10,9 @@
   border: none;
   color: white;
 }
+
+.btn-warning :focus {
+  background-color: $primary !important;
+  border: none;
+  color: white;
+}
