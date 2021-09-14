@@ -1,3 +1,4 @@
+
 (function() {
   // Getting config.json from front end
   let url;
