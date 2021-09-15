@@ -1,4 +1,3 @@
-
 (function() {
   // Getting config.json from front end
   let url;
@@ -80,8 +79,6 @@
   }); //r-submit click
 
 
-
-
   // Login Method ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   $('#login').click(function() {
     event.preventDefault();
@@ -117,7 +114,6 @@
             sessionStorage.setItem('userName', user['username']);
             sessionStorage.setItem('userEmail', user['email']);
             window.location = 'landing.html';
-
           }
         }, //success
         error: function() {
@@ -153,6 +149,8 @@
     let listConsole = $('#listConsole').val();
     let description = $('#listDescription').val();
     let imgUrl = $('#listImg').val();
+    let condition = $('#listCondition').val();
+    let userId = sessionStorage.getItem('userID');
 
     console.log(listTitle, price); //remove after development for security
 
@@ -173,15 +171,16 @@
             console: listConsole,
             genre: genre,
             description: description,
+            condition: condition,
             seller: "bob",
             itemLocation: 'south',
-            created_at: Date.now()
-            // seller:sessionStorage.setItem('userID', user['_id']);
+            created_at: Date.now(),
+            user_id:userId
 
           },
           success: function(product) {
             console.log(product + "wahoo");
-            window.location =  "landing.html"
+            window.location = "landing.html"
 
           }, //success
           error: function() {
@@ -189,17 +188,61 @@
           } //errror
 
         }); //ajax
-
-
-
-
-
-
       });
 
     } //if else
   });
+  // display users projects in list on admin page::::::::::::::::::::::::::::::::
+  $('#submit').click(function() {
+    $.ajax({
+      url: `${url}/allProjectsFromDB`,
+      type: 'GET',
+      dataType: 'json',
+      success: function(projectsFromMongo) {
+        var i;
+        for (i = 0; i < productsFromMongo.length; i++) {
+          // $('.card-container').innerHTML +=`
+          //   input front end code here
+          //
+          // `
 
+        }
+
+
+
+
+      }, // submit success fuction ends
+      error: function() {}
+    }) //ajax
+  }) // Submit/all projects from mongo call ends
+
+// Reset search with filters
+  $('#filter').click(function() {
+    selectedGenre =  document.querySelector('#filterGenre').value
+
+    $.ajax({
+      url: `/allProductsFromDB/Genre`,
+      type: 'GET',
+      dataType: 'json',
+      success: function(projectsFromMongo) {
+
+        var i;
+
+        for (i = 0; i < productsFromMongo.length; i++) {
+          // $('.card-container').innerHTML +=`
+          //   input front end code here
+          //
+          // `
+
+        }
+
+
+
+
+      }, // submit success fuction ends
+      error: function() {}
+    }) //ajax
+  }) // Submit/all projects from mongo call ends
 
 
 
