@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema({
   description:String,
   seller:String,
   itemLocation:String,
+  condition:String,
   created_at: {
     type: Date, required: true, default: Date.now },
   user_id: {

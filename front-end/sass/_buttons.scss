@@ -16,3 +16,14 @@
   border: none;
   color: white;
 }
+
+.btn-outline-warning {
+  border: none;
+  color: black;
+}
+
+.btn-outline-warning:hover {
+  background: none;
+  border: none;
+  color: $primary-hover;
+}
