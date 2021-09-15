@@ -2,11 +2,9 @@ const express =require('express');//includes express
 const app = express(); //calls the express method
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//cross origin resource sharing
 const cors = require('cors');//cross origin restriction to be waived
 const bcrypt = require('bcryptjs');
 const config = require('./config.json');
-
 const Product = require('./models/products.js');
 const User = require('./models/users.js');
 
@@ -84,12 +82,13 @@ app.post('/addProduct',(req,res)=>{
     _id : new mongoose.Types.ObjectId,
     name : req.body.name,
     price: req.body.price,
-    image_url : req.body.imageUrl,
+    image_url : req.body.image_url,
     console:req.body.console,
     genre: req.body.genre,
     description:req.body.description,
     seller:req.body.seller,
     itemLocation:req.body.itemLocation,
+    user_id :req.body.user_id
 
   });
   //save to the database and notify the user
@@ -106,8 +105,8 @@ app.get('/allProductsFromDB',(req,res)=>{
   })
 })
 
-// var selectedGenre = document.querySelector('#genreFilter').val()
-var genre = "Action"
+// var selectedGenre = document.querySelector('#filterGenre').val()
+
 // Products by genre
 app.get(`/allProductsFromDB/Genre`,(req,res)=>{
   Product.find({
@@ -116,6 +115,18 @@ app.get(`/allProductsFromDB/Genre`,(req,res)=>{
     res.send(result);
   })
 })
+
+// Show only users Listings
+app.get(`/allProductsFromDB/userListings`,(req,res)=>{
+  Product.find({
+  genre:selectedGenre
+  }).then(result=>{
+    res.send(result);
+  })
+})
+
+
+
 
 //patch is to update the details of the objects
 app.patch('/updateProduct/:id',(req,res)=>{
@@ -156,6 +167,9 @@ app.delete('/deleteProduct/:id',(req,res)=>{
     } //else
   }).catch(err=> res.send(err));
 });//delete
+
+
+
 
 
 // //get method to access data from Products.json
