@@ -100,7 +100,19 @@ app.post('/addProduct',(req,res)=>{
 
 //retrieve objects or documents from the database
 app.get('/allProductsFromDB',(req,res)=>{
-  Product.find().then(result=>{
+  Product.find().
+  then(result=>{
+    res.send(result);
+  })
+})
+
+// var selectedGenre = document.querySelector('#genreFilter').val()
+var genre = "Action"
+// Products by genre
+app.get(`/allProductsFromDB/Genre`,(req,res)=>{
+  Product.find({
+  genre:selectedGenre
+  }).then(result=>{
     res.send(result);
   })
 })
@@ -146,30 +158,33 @@ app.delete('/deleteProduct/:id',(req,res)=>{
 });//delete
 
 
-//get method to access data from Products.json
-//routing to the endpoint
-app.get('/allProducts', (req,res)=>{
-  res.json(product);
-})
+// //get method to access data from Products.json
+// //routing to the endpoint
+// app.get('/allProducts', (req,res)=>{
+//   res.json(product);
+// })
 
-app.get('/products/p=:id',(req,res)=>{
-  const idParam = req.params.id;
-  for (let i =0; i<product.length; i++){
-    if (idParam.toString() === product[i].id.toString()){
-      res.json(product[i]);
-    }
-  }
-});
+// app.get('/products/p=:id',(req,res)=>{
+//   const idParam = req.params.id;
+//   for (let i =0; i<product.length; i++){
+//     if (idParam.toString() === product[i].id.toString()){
+//       res.json(product[i]);
+//     }
+//   }
+// });
 
-app.get(`/products/${genre}`,(req,res)=>{
-  const genre = "Racing"
-  for (let i = 0; i < product.length; i++){
-    if (genre === product[i].genre){
-      res.json(product[i]);
-      console.log(product[i]);
-    }
-  }
-});
+
+// app.get(`/allProductsFromDB/${genre}`,(req,res)=>{
+// // const genreParam = req.params.genre;
+// //   for (let i = 0; i < product.length; i++){
+// //     if (genre === product[i].length){
+// //       res.json(product[i]);
+// //       console.log(product[i]);
+// //     }
+// //   }
+// console.log('success');
+
+// });
 
 
 
