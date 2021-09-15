@@ -119,7 +119,7 @@ app.get(`/allProductsFromDB/Genre`,(req,res)=>{
 // Show only users Listings
 app.get(`/allProductsFromDB/userListings`,(req,res)=>{
   Product.find({
-  genre:selectedGenre
+  user_id:"6136a289c831222b3458177d"
   }).then(result=>{
     res.send(result);
   })
