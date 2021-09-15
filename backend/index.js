@@ -2,11 +2,9 @@ const express =require('express');//includes express
 const app = express(); //calls the express method
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//cross origin resource sharing
 const cors = require('cors');//cross origin restriction to be waived
 const bcrypt = require('bcryptjs');
 const config = require('./config.json');
-
 const Product = require('./models/products.js');
 const User = require('./models/users.js');
 
@@ -76,7 +74,7 @@ app.post('/loginUser', (req,res)=>{
   });//findOne
 });//post
 
-// Project Methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Product Methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 //post method to write or create a product in mongodb
 app.post('/addProduct',(req,res)=>{
@@ -84,12 +82,14 @@ app.post('/addProduct',(req,res)=>{
     _id : new mongoose.Types.ObjectId,
     name : req.body.name,
     price: req.body.price,
-    image_url : req.body.imageUrl,
+    image_url : req.body.image_url,
     console:req.body.console,
     genre: req.body.genre,
     description:req.body.description,
     seller:req.body.seller,
     itemLocation:req.body.itemLocation,
+    user_id :req.body.user_id
+
   });
   //save to the database and notify the user
   dbProduct.save().then(result=>{
@@ -99,10 +99,35 @@ app.post('/addProduct',(req,res)=>{
 
 //retrieve objects or documents from the database
 app.get('/allProductsFromDB',(req,res)=>{
-  Product.find().then(result=>{
+  Product.find().
+  then(result=>{
     res.send(result);
   })
 })
+
+// var selectedGenre = document.querySelector('#filterGenre').val()
+
+// Products by genre
+app.get(`/allProductsFromDB/Genre`,(req,res)=>{
+  Product.find({
+  genre:"RPG",
+  console:"GameBoy"
+  }).then(result=>{
+    res.send(result);
+  })
+})
+
+// Show only users Listings
+app.get(`/allProductsFromDB/userListings`,(req,res)=>{
+  Product.find({
+  user_id:"6136a289c831222b3458177d"
+  }).then(result=>{
+    res.send(result);
+  })
+})
+
+
+
 
 //patch is to update the details of the objects
 app.patch('/updateProduct/:id',(req,res)=>{
@@ -145,20 +170,38 @@ app.delete('/deleteProduct/:id',(req,res)=>{
 });//delete
 
 
-//get method to access data from Products.json
-//routing to the endpoint
-app.get('/allProducts', (req,res)=>{
-  res.json(product);
-})
 
-app.get('/products/p=:id',(req,res)=>{
-  const idParam = req.params.id;
-  for (let i =0; i<product.length; i++){
-    if (idParam.toString() === product[i].id.toString()){
-      res.json(product[i]);
-    }
-  }
-});
+
+
+// //get method to access data from Products.json
+// //routing to the endpoint
+// app.get('/allProducts', (req,res)=>{
+//   res.json(product);
+// })
+
+// app.get('/products/p=:id',(req,res)=>{
+//   const idParam = req.params.id;
+//   for (let i =0; i<product.length; i++){
+//     if (idParam.toString() === product[i].id.toString()){
+//       res.json(product[i]);
+//     }
+//   }
+// });
+
+
+// app.get(`/allProductsFromDB/${genre}`,(req,res)=>{
+// // const genreParam = req.params.genre;
+// //   for (let i = 0; i < product.length; i++){
+// //     if (genre === product[i].length){
+// //       res.json(product[i]);
+// //       console.log(product[i]);
+// //     }
+// //   }
+// console.log('success');
+
+// });
+
+
 
 //listening to port
 app.listen(port,()=>console.log(`My fullstack application is listening on port ${port}`))

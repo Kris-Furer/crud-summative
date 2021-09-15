@@ -8,6 +8,13 @@
   box-sizing: border-box;
 }
 
+a {
+  i {
+    text-decoration: none!important;
+    color: inherit;
+  }
+}
+
 body {}
 
 h1,
@@ -28,6 +35,10 @@ p {
 
 img {
   max-width: 100%;
+}
+
+.orange {
+  color: #f78a30;
 }
 
 .landing-logo {
@@ -52,4 +63,19 @@ img {
 
 .form-group {
   margin: 10px 0;
+}
+
+.card {
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
+  border-radius: 0;
+  border: none;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card-footer {
+  border: none;
 }
