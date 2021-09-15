@@ -221,7 +221,7 @@
     selectedGenre =  document.querySelector('#filterGenre').value
 
     $.ajax({
-      url: `${selectedGenre}/allProjectsFromDB`,
+      url: `/allProductsFromDB/Genre`,
       type: 'GET',
       dataType: 'json',
       success: function(projectsFromMongo) {

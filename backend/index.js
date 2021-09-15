@@ -110,7 +110,8 @@ app.get('/allProductsFromDB',(req,res)=>{
 // Products by genre
 app.get(`/allProductsFromDB/Genre`,(req,res)=>{
   Product.find({
-  genre:selectedGenre
+  genre:"RPG",
+  console:"GameBoy"
   }).then(result=>{
     res.send(result);
   })
