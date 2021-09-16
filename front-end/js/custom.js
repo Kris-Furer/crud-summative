@@ -140,8 +140,6 @@ var results = document.querySelector('#results')
 
 
 
-
-
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   var logout = document.querySelectorAll('.logoutBtn')
     for (var i = 0; i < logout.length; i++) {
@@ -149,7 +147,6 @@ var results = document.querySelector('#results')
         sessionStorage.clear();
         console.log('You are logged out');
         console.log(sessionStorage);
-        // $('#loginOverlay').css('display', 'flex')
         location.href = "index.html";
       }
     }
@@ -290,9 +287,9 @@ if (results) {
   //    Show user listings  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
+var listingContainer = document.querySelector('#listingContainer')
   function showUserListings(){
-    var currentUser = "ObjectId(" + sessionStorage.getItem('userID') +")";
+    var currentUser = sessionStorage.getItem('userID');
     console.log(currentUser + ' is the man');
 
     $.ajax({
@@ -300,7 +297,7 @@ if (results) {
       type: 'GET',
       dataType: 'json',
       data:{
-        user_id:currentUser
+        user_id: currentUser
       },
       success: function(productsFromMongo) {
         console.log(productsFromMongo);
@@ -333,6 +330,10 @@ if (results) {
       error: function() {}
     }) //ajax
   }
-showUserListings();
+
+if (listingContainer) {
+  showUserListings();
+}
+
 
 }); // doc ready ends

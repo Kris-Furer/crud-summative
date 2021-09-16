@@ -116,18 +116,17 @@ app.get(`/allProductsFromDB/Genre`,(req,res)=>{
     res.send(result);
   })
 })
-// var currentUser = sessionStorage.getItem('userID');
-// Show only users Listings
+
+// Products by user
 app.get(`/allProductsFromDB/userListings`,(req,res)=>{
+  // Product find looks for a match
   Product.find({
-  user_id:req.body.user_id
+  // query allows us to get get user id from the front end
+  user_id:req.query.user_id
   }).then(result=>{
     res.send(result);
-  })
+  });
 })
-
-
-
 
 //patch is to update the details of the objects
 app.patch('/updateProduct/:id',(req,res)=>{
