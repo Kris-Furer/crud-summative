@@ -74,7 +74,7 @@ app.post('/loginUser', (req,res)=>{
   });//findOne
 });//post
 
-//Product Methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Product Methods:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 //post method to write or create a product in mongodb
 app.post('/addProduct',(req,res)=>{
@@ -116,11 +116,11 @@ app.get(`/allProductsFromDB/Genre`,(req,res)=>{
     res.send(result);
   })
 })
-
+// var currentUser = sessionStorage.getItem('userID');
 // Show only users Listings
 app.get(`/allProductsFromDB/userListings`,(req,res)=>{
   Product.find({
-  user_id:"6136a289c831222b3458177d"
+  user_id:req.body.user_id
   }).then(result=>{
     res.send(result);
   })
@@ -138,7 +138,7 @@ app.patch('/updateProduct/:id',(req,res)=>{
         _id : new mongoose.Types.ObjectId,
         name : req.body.name,
         price: req.body.price,
-        image_url : req.body.imageUrl,
+        image : req.body.image,
         console:req.body.console,
         genre: req.body.genre,
         description:req.body.description,
