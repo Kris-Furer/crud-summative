@@ -1,6 +1,11 @@
-(function() {
+
+$(document).ready(function() {
+var results = document.querySelector('#results')
+
   // Getting config.json from front end
-  let url;
+
+
+  let url; //declare url as a variable in es6
   $.ajax({
     url: 'config.json',
     type: 'GET',
@@ -8,12 +13,21 @@
     success: function(configData) {
       console.log(configData.SERVER_URL, configData.SERVER_PORT);
       url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-      console.log(url);
+
     },
     error: function(error) {
       console.log(error);
     }
-  }); //ajax Ends
+
+  }) //ajax
+
+
+
+
+
+
+
+
 
 
   // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -99,7 +113,7 @@
           password: password
         },
         success: function(user) {
-          console.log(user + "wahoo");
+          console.log(user);
 
           if (user == 'user not found. Please register') {
             alert(
@@ -128,18 +142,24 @@
 
 
 
-  // //logout
-  // $('#logout').click(function() {
-  //   sessionStorage.clear();
-  //   console.log('You are logged out');
-  //   console.log(sessionStorage);
-  //   $('#loginOverlay').css('display', 'flex')
-  //   location.href = "index.html";
-  // });
+  // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  var logout = document.querySelectorAll('.logoutBtn')
+    for (var i = 0; i < logout.length; i++) {
+      logout[i].onclick = function(){
+        sessionStorage.clear();
+        console.log('You are logged out');
+        console.log(sessionStorage);
+        // $('#loginOverlay').css('display', 'flex')
+        location.href = "index.html";
+      }
+    }
+
+
   // $('.header-user').text(sessionStorage.getItem('userName'));
 
-
-  // Add Listing method:::::::::::::::::::::::::::::::::::::::::::
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   $('#listItem').click(function() {
     event.preventDefault();
@@ -167,7 +187,7 @@
           data: {
             name: listTitle,
             price: price,
-            image_url: imgUrl,
+            image: imgUrl,
             console: listConsole,
             genre: genre,
             description: description,
@@ -176,10 +196,9 @@
             itemLocation: 'south',
             created_at: Date.now(),
             user_id:userId
-
           },
           success: function(product) {
-            console.log(product + "wahoo");
+
             window.location = "landing.html"
 
           }, //success
@@ -192,58 +211,128 @@
 
     } //if else
   });
-  // display users projects in list on admin page::::::::::::::::::::::::::::::::
-  $('#submit').click(function() {
-    $.ajax({
-      url: `${url}/allProjectsFromDB`,
-      type: 'GET',
-      dataType: 'json',
-      success: function(projectsFromMongo) {
-        var i;
-        for (i = 0; i < productsFromMongo.length; i++) {
-          // $('.card-container').innerHTML +=`
-          //   input front end code here
-          //
-          // `
-
-        }
 
 
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// display all results on landing page::::::::::::::::::::::::::::::::::::::::::::
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-      }, // submit success fuction ends
-      error: function() {}
-    }) //ajax
-  }) // Submit/all projects from mongo call ends
-
-// Reset search with filters
-  $('#filter').click(function() {
-    selectedGenre =  document.querySelector('#filterGenre').value
+function showAllResults(){
 
     $.ajax({
-      url: `/allProductsFromDB/Genre`,
+      url: `http://localhost:3002/allProductsFromDB`,
       type: 'GET',
       dataType: 'json',
-      success: function(projectsFromMongo) {
-
+      success: function(productsFromMongo) {
+        console.log(productsFromMongo);
+        console.log(url + "weirrrd");
         var i;
 
         for (i = 0; i < productsFromMongo.length; i++) {
-          // $('.card-container').innerHTML +=`
-          //   input front end code here
-          //
-          // `
-
+          // create card div for each item
+          var productCard = document.createElement("div")
+          results.appendChild(productCard)
+          productCard.classList.add('card', 'mx-4', 'my-4', 'lg-4');
+          // fill the cards content
+          productCard.innerHTML =`
+            <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">${productsFromMongo[i].name}</h5>
+              <p class="card-text">${productsFromMongo[i].description}</p>
+              <p class="price">${productsFromMongo[i].price}</p>
+            </div>
+          `
         }
+      }, // submit success fuction ends
+      error: function() {
+        console.log("");
+      }
+    }) //ajax
+}
+
+if (results) {
+  showAllResults()
+}
 
 
 
 
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  // $('#filter').click(function() {
+  //   selectedGenre =  document.querySelector('#filterGenre').value
+  //
+  //   $.ajax({
+  //     url: `/allProductsFromDB/Genre`,
+  //     type: 'GET',
+  //     dataType: 'json',
+  //
+  //     success: function(projectsFromMongo) {
+  //       var i;
+  //
+  //       for (i = 0; i < productsFromMongo.length; i++) {
+  //         // $('.card-container').innerHTML +=`
+  //         //   input front end code here
+  //         //
+  //         // `
+  //
+  //       }
+  //
+  //     }, // submit success fuction ends
+  //     error: function() {}
+  //   }) //ajax
+  // }) // Submit/all projects from mongo call ends
+
+
+  // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //    Show user listings  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+  function showUserListings(){
+    var currentUser = "ObjectId(" + sessionStorage.getItem('userID') +")";
+    console.log(currentUser + ' is the man');
+
+    $.ajax({
+      url: `http://localhost:3002/allProductsFromDB/userListings`,
+      type: 'GET',
+      dataType: 'json',
+      data:{
+        user_id:currentUser
+      },
+      success: function(productsFromMongo) {
+        console.log(productsFromMongo);
+        var i;
+        var listingContainer = document.querySelector('#listingContainer')
+        for (i = 0; i < productsFromMongo.length; i++) {
+          // create card div for each item
+          var productCard = document.createElement("div")
+          listingContainer.appendChild(productCard)
+          productCard.classList.add('card', 'mx-4', 'my-4');
+          // fill the cards content
+          productCard.innerHTML =`
+            <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">${productsFromMongo[i].name}</h5>
+              <p class="card-text">${productsFromMongo[i].description}</p>
+              <p class="price">${productsFromMongo[i].price}</p>
+            </div>
+            <div class="card-footer bg-transparent align-self-end">
+              <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          `
+        }
       }, // submit success fuction ends
       error: function() {}
     }) //ajax
-  }) // Submit/all projects from mongo call ends
+  }
+showUserListings();
 
-
-
-}()); // iife ends
+}); // doc ready ends
