@@ -74,7 +74,7 @@ app.post('/loginUser', (req,res)=>{
   });//findOne
 });//post
 
-//Product Methods::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Product Methods:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 //post method to write or create a product in mongodb
 app.post('/addProduct',(req,res)=>{
@@ -117,17 +117,16 @@ app.get(`/allProductsFromDB/Genre`,(req,res)=>{
   })
 })
 
-// Show only users Listings
+// Products by user
 app.get(`/allProductsFromDB/userListings`,(req,res)=>{
+  // Product find looks for a match
   Product.find({
-  user_id:"6136a289c831222b3458177d"
+  // query allows us to get get user id from the front end
+  user_id:req.query.user_id
   }).then(result=>{
     res.send(result);
-  })
+  });
 })
-
-
-
 
 //patch is to update the details of the objects
 app.patch('/updateProduct/:id',(req,res)=>{
@@ -138,7 +137,7 @@ app.patch('/updateProduct/:id',(req,res)=>{
         _id : new mongoose.Types.ObjectId,
         name : req.body.name,
         price: req.body.price,
-        image_url : req.body.imageUrl,
+        image : req.body.image,
         console:req.body.console,
         genre: req.body.genre,
         description:req.body.description,

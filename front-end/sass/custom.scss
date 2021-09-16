@@ -15,7 +15,9 @@ a {
   }
 }
 
-body {}
+body {
+
+}
 
 h1,
 h2 {
@@ -31,6 +33,7 @@ h6 {
 
 p {
   @include bodyCopy;
+
 }
 
 img {
