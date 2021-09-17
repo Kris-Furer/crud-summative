@@ -1,6 +1,5 @@
-
 $(document).ready(function() {
-var results = document.querySelector('#results')
+  var results = document.querySelector('#results')
 
   // Getting config.json from front end
 
@@ -20,7 +19,6 @@ var results = document.querySelector('#results')
     }
 
   }) //ajax
-
 
 
 
@@ -51,9 +49,9 @@ var results = document.querySelector('#results')
   // User register Method::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   $('#signUp').click(function() {
     event.preventDefault(); //this prevents code breaking when no data is found
-    let userName = $('#regUsername').val();
-    let email = $('#regEmail').val();
-    let password = $('#regPassword').val();
+    let userName = $('#floatingRegUsername').val();
+    let email = $('#floatingRegEmail').val();
+    let password = $('#floatingRegPassword').val();
     console.log(userName, email, password);
 
     if (userName == '' || email == '' || password == '') {
@@ -96,8 +94,8 @@ var results = document.querySelector('#results')
   // Login Method ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   $('#login').click(function() {
     event.preventDefault();
-    let userName = $('#userName').val();
-    let password = $('#password').val();
+    let userName = $('#floatingUserName').val();
+    let password = $('#floatingPassword').val();
 
     console.log(userName,
       password); //remove after development for security
@@ -121,8 +119,8 @@ var results = document.querySelector('#results')
             );
           } else if (user == 'not authorized') {
             alert('Please  try with correct details');
-            $('#username').val('');
-            $('#password').val('');
+            $('#floatingUserName').val('');
+            $('#floatingPassword').val('');
           } else {
             sessionStorage.setItem('userID', user['_id']);
             sessionStorage.setItem('userName', user['username']);
@@ -142,31 +140,31 @@ var results = document.querySelector('#results')
 
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   var logout = document.querySelectorAll('.logoutBtn')
-    for (var i = 0; i < logout.length; i++) {
-      logout[i].onclick = function(){
-        sessionStorage.clear();
-        console.log('You are logged out');
-        console.log(sessionStorage);
-        location.href = "index.html";
-      }
+  for (var i = 0; i < logout.length; i++) {
+    logout[i].onclick = function() {
+      sessionStorage.clear();
+      console.log('You are logged out');
+      console.log(sessionStorage);
+      location.href = "index.html";
     }
+  }
 
 
   // $('.header-user').text(sessionStorage.getItem('userName'));
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   $('#listItem').click(function() {
     event.preventDefault();
-    let listTitle = $('#listTitle').val();
-    let price = $('#listPrice').val();
-    let genre = $('#listGenre').val();
-    let listConsole = $('#listConsole').val();
-    let description = $('#listDescription').val();
-    let imgUrl = $('#listImg').val();
-    let condition = $('#listCondition').val();
+    let listTitle = $('#floatingListTitle').val();
+    let price = $('#floatingListPrice').val();
+    let genre = $('#floatingListGenre').val();
+    let listConsole = $('#floatingListConsole').val();
+    let description = $('#floatingListDescription').val();
+    let imgUrl = $('#floatingListImg').val();
+    let condition = $('#floatingListCondition').val();
     let userId = sessionStorage.getItem('userID');
 
     console.log(listTitle, price); //remove after development for security
@@ -192,7 +190,7 @@ var results = document.querySelector('#results')
             seller: "bob",
             itemLocation: 'south',
             created_at: Date.now(),
-            user_id:userId
+            user_id: userId
           },
           success: function(product) {
 
@@ -210,11 +208,11 @@ var results = document.querySelector('#results')
   });
 
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// display all results on landing page::::::::::::::::::::::::::::::::::::::::::::
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // display all results on landing page::::::::::::::::::::::::::::::::::::::::::::
+  // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-function showAllResults(){
+  function showAllResults() {
 
     $.ajax({
       url: `http://localhost:3002/allProductsFromDB`,
@@ -229,15 +227,17 @@ function showAllResults(){
           // create card div for each item
           var productCard = document.createElement("div")
           results.appendChild(productCard)
-          productCard.classList.add('card', 'mx-4', 'my-4', 'lg-4');
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
-          productCard.innerHTML =`
+          productCard.innerHTML = `
+          <div class="card h-100">
             <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
               <p class="card-text">${productsFromMongo[i].description}</p>
               <p class="price">${productsFromMongo[i].price}</p>
             </div>
+          </div>
           `
         }
       }, // submit success fuction ends
@@ -245,18 +245,18 @@ function showAllResults(){
         console.log("");
       }
     }) //ajax
-}
+  }
 
-if (results) {
-  showAllResults()
-}
-
-
+  if (results) {
+    showAllResults()
+  }
 
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   // $('#filter').click(function() {
   //   selectedGenre =  document.querySelector('#filterGenre').value
@@ -287,8 +287,9 @@ if (results) {
   //    Show user listings  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-var listingContainer = document.querySelector('#listingContainer')
-  function showUserListings(){
+  var listingContainer = document.querySelector('#listingContainer')
+
+  function showUserListings() {
     var currentUser = sessionStorage.getItem('userID');
     console.log(currentUser + ' is the man');
 
@@ -296,7 +297,7 @@ var listingContainer = document.querySelector('#listingContainer')
       url: `http://localhost:3002/allProductsFromDB/userListings`,
       type: 'GET',
       dataType: 'json',
-      data:{
+      data: {
         user_id: currentUser
       },
       success: function(productsFromMongo) {
@@ -309,7 +310,7 @@ var listingContainer = document.querySelector('#listingContainer')
           listingContainer.appendChild(productCard)
           productCard.classList.add('card', 'mx-4', 'my-4');
           // fill the cards content
-          productCard.innerHTML =`
+          productCard.innerHTML = `
             <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
@@ -331,9 +332,9 @@ var listingContainer = document.querySelector('#listingContainer')
     }) //ajax
   }
 
-if (listingContainer) {
-  showUserListings();
-}
+  if (listingContainer) {
+    showUserListings();
+  }
 
 
 }); // doc ready ends

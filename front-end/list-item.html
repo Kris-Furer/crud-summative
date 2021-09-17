@@ -27,58 +27,58 @@
         </header>
 
 
-        <form class="mx-3 ">
+        <form class="mx-3">
           <!-- Title -->
-          <div class="form-group">
-            <label class="mb-1" for="listTitle">Title</label>
-            <input type="text" class="form-control" id="listTitle" placeholder="Enter title">
+          <div class="form-group form-floating">
+            <input type="text" class="form-control" id="floatingListTitle" placeholder="Enter title">
+            <label class="mb-1" for="floatingListTitle">Title</label>
           </div>
           <!-- Price -->
-          <div class="form-group">
-            <label class="mb-1" for="listPrice">Price</label>
-            <input type="number" class="form-control" id="listPrice" placeholder="Enter price" min="0">
+          <div class="form-group form-floating">
+            <input type="number" class="form-control" id="floatingListPrice" placeholder="Enter price" min="0">
+            <label class="mb-1" for="floatingListPrice">Price</label>
           </div>
           <!-- genre select -->
-          <div class="form-group">
-            <label class="mb-1" for="listGenre">Genre</label>
-            <select class="form-control" id="listGenre">
-              <option selected disabled>Please Select</option>
+          <div class="form-group form-floating">
+            <select class="form-select" id="floatingListGenre">
+              <option disabled selected>Please Select</option>
               <option>RPG</option>
               <option>Action</option>
               <option>Racing</option>
               <option>Other</option>
             </select>
+            <label class="mb-1" for="floatingListGenre">Genre</label>
           </div>
           <!-- console select -->
-          <div class="form-group">
-            <label class="mb-1" for="listConsole">Console</label>
-            <select class="form-control" id="listConsole">
-              <option selected disabled>Please Select</option>
+          <div class="form-group form-floating">
+            <select class="form-select" id="floatingListConsole">
+              <option disabled selected>Please Select</option>
               <option>Playstation</option>
               <option>Xbox</option>
               <option>Gameboy</option>
               <option>Gameboy Advance</option>
             </select>
+            <label class="mb-1" for="floatingListConsole">Console</label>
           </div>
-          <div class="form-group">
-            <label class="mb-1" for="listCondition">Condition</label>
-            <select class="form-control" id="listCondition">
-              <option selected disabled>Please Select</option>
+          <div class="form-group form-floating">
+            <select class="form-select" id="floatingListCondition">
+              <option disabled selected>Please Select</option>
               <option>Poor</option>
               <option>Average</option>
               <option>Good</option>
               <option>Brand New</option>
             </select>
+            <label class="mb-1" for="floatingListCondition">Condition</label>
           </div>
           <!-- image url -->
-          <div class="form-group">
-            <label class="mb-1" for="listTitle">Image Url</label>
-            <input type="text" class="form-control" id="listImg" placeholder="Enter image url">
+          <div class="form-group form-floating">
+            <input type="text" class="form-control" id="floatingListImg" placeholder="Enter image url">
+            <label class="mb-1" for="floatingListImg">Image Url</label>
           </div>
           <!-- Description -->
-          <div class="form-group">
-            <label class="mb-1" for="exampleFormControlTextarea1">Enter Description</label>
-            <textarea class="form-control" id="listDescription" rows="3"></textarea>
+          <div class="form-group form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingListDescription" style="height: 100px"></textarea>
+            <label for="floatingListDescription">Description</label>
           </div>
 
           <button id='listItem' type="submit" class=" login-btn btn btn-warning btn-block my-3">List Item</button>
