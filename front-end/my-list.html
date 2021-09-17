@@ -129,6 +129,85 @@
     </div>
   </div>
 
+<!-- Updatemodal  -->
+<div class="modal fade" id="updateProductForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Listing</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container my-3">
+          <form class="mx-3 ">
+            <!-- Title -->
+            <div class="form-group">
+              <label class="mb-1" for="listTitle">Title</label>
+              <input type="text" class="form-control" id="listTitle" placeholder="Enter title">
+            </div>
+            <!-- Price -->
+            <div class="form-group">
+              <label class="mb-1" for="listPrice">Price</label>
+              <input type="number" class="form-control" id="listPrice" placeholder="Enter price" min="0">
+            </div>
+            <!-- genre select -->
+            <div class="form-group">
+              <label class="mb-1" for="listGenre">Genre</label>
+              <select class="form-control" id="listGenre">
+                <option selected disabled>Please Select</option>
+                <option>RPG</option>
+                <option>Action</option>
+                <option>Racing</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <!-- console select -->
+            <div class="form-group">
+              <label class="mb-1" for="listConsole">Console</label>
+              <select class="form-control" id="listConsole">
+                <option selected disabled>Please Select</option>
+                <option>Playstation</option>
+                <option>Xbox</option>
+                <option>Gameboy</option>
+                <option>Gameboy Advance</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="mb-1" for="listCondition">Condition</label>
+              <select class="form-control" id="listCondition">
+                <option selected disabled>Please Select</option>
+                <option>Poor</option>
+                <option>Average</option>
+                <option>Good</option>
+                <option>Brand New</option>
+              </select>
+            </div>
+            <!-- image url -->
+            <div class="form-group">
+              <label class="mb-1" for="listTitle">Image Url</label>
+              <input type="text" class="form-control" id="listImg" placeholder="Enter image url">
+            </div>
+            <!-- Description -->
+            <div class="form-group">
+              <label class="mb-1" for="exampleFormControlTextarea1">Enter Description</label>
+              <textarea class="form-control" id="listDescription" rows="3"></textarea>
+            </div>
+
+            <button id='listItem' type="submit" class=" login-btn btn btn-warning btn-block my-3">List Item</button>
+          </form>
+
+          <!-- Container ends -->
+        </div>
+      </div>
+      <div id="setFilter" class="modal-footer">
+        <button type="button" class="btn btn-warning">Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="js/custom.js"></script>

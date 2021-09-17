@@ -26,10 +26,6 @@ var results = document.querySelector('#results')
 
 
 
-
-
-
-
   // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // Fade Login screen to sign up screen
   $("#toSignUp").click(function() {
@@ -284,7 +280,7 @@ if (results) {
 
 
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  //    Show user listings  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //    Show user listings on my list .html :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 var listingContainer = document.querySelector('#listingContainer')
@@ -318,14 +314,50 @@ var listingContainer = document.querySelector('#listingContainer')
             </div>
             <div class="card-footer bg-transparent align-self-end">
               <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                <button type="button" value=${productsFromMongo[i].title} class="btn btn-outline-warning"><i class=" edit fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
+                <button type="button" value=${productsFromMongo[i].title} class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
           `
         }
+
+        // Update Event Listener::::::::::::::::::::::::::::::::::::::::::::::::
+        document.addEventListener('click', function(e) {
+          // define the target objects by class name
+          if (e.target.classList.contains('fa-pencil')) {
+            console.log("bam bam, bam");
+
+            // find a match between a button value and project name
+            for (var i = 0; i < productsFromMongo
+              .length; i++) {
+              if (productsFromMongo[i].title === e.target.value) {
+                selection = i;
+                console.log(productsFromMongo[selection]
+                  .title);
+
+                $('#updateProductForm').fadeIn(500)
+
+                e.target.parentNode.parentNode.remove()
+                // updateProduct()
+                $('.oldTitle').text(productsFromMongo[
+                    selection]
+                  .title)
+                  $("#updateProductForm").modal("show");
+              }
+            }
+          }
+        }); // Event listner ends
+
+
+
+
+
+
+
+
+
       }, // submit success fuction ends
       error: function() {}
     }) //ajax
