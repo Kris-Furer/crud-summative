@@ -18,7 +18,8 @@
       <a class="navbar-brand" href="landing.html">
         <img src="img/logos/RetroStop-side.png" alt="RetroStop Logo" width="150">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -44,30 +45,20 @@
     </div>
   </nav>
   <main>
-    <div class="px-4 py-5 my-5 text-center">
+    <div class="px-4 py-5 text-center">
       <h1 class="fw-bold">Welcome to RetroStop</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4"></p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button class="btn btn-warning btn-lg px-4 gap-3" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Filter your results</button>
-  <div class="filter-container">
-    <button class="filter-button" type="button" name="button"> filter</button>
-    <img class="down arrow" src="img/down-arrow.png" alt="">
-  </div>
+          <button class="btn btn-warning btn-lg px-4 gap-3" type="button" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">Filter your results</button>
+        </div>
+      </div>
+    </div>
   </main>
 
   <div class="container">
-    <div id="results" class="card-group">
-      <div class="card mx-4 my-4">
-        <img src="img/SW.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-            content.
-            This content is a little bit longer.</p>
-        </div>
-      </div>
-
+    <div id="results" class="row justify-content-center">
     </div>
   </div>
 
@@ -86,36 +77,36 @@
               <div class="mx-auto">
                 <form class="mx-3 ">
                   <!-- genre select -->
-                  <div class="form-group">
-                    <label class="mb-1" for="filterGenre">Genre</label>
-                    <select class="form-control" id="filterGenre">
+                  <div class="form-group form-floating">
+                    <select class="form-select" id="floatingFilterGenre">
                       <option selected disabled>Please Select</option>
                       <option>RPG</option>
                       <option>Action</option>
                       <option>Racing</option>
                       <option>Other</option>
                     </select>
+                    <label class="mb-1" for="floatingFilterGenre">Genre</label>
                   </div>
                   <!-- console select -->
-                  <div class="form-group">
-                    <label class="mb-1" for="filterConsole">Console</label>
-                    <select class="form-control" id="filterConsole">
+                  <div class="form-group form-floating">
+                    <select class="form-select" id="floatingFilterConsole">
                       <option selected disabled>Please Select</option>
                       <option>Playstation</option>
                       <option>Xbox</option>
                       <option>Gameboy</option>
                       <option>Gameboy Advance</option>
                     </select>
+                    <label class="mb-1" for="floatingFilterConsole">Console</label>
                   </div>
-                  <div class="form-group">
-                    <label class="mb-1" for="filterCondition">Condidtion</label>
-                    <select class="form-control" id="filterCondition">
+                  <div class="form-group form-floating">
+                    <select class="form-select" id="floatingFilterCondition">
                       <option selected disabled>Please Select</option>
                       <option>Poor</option>
                       <option>Average</option>
                       <option>Good</option>
                       <option>Brand New</option>
                     </select>
+                    <label class="mb-1" for="floatingFilterCondition">Condidtion</label>
                   </div>
                 </form>
               </div>

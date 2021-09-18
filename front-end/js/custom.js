@@ -1,6 +1,5 @@
-
 $(document).ready(function() {
-var results = document.querySelector('#results')
+  var results = document.querySelector('#results')
 
   // Getting config.json from front end
 
@@ -47,9 +46,9 @@ var results = document.querySelector('#results')
   // User register Method::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   $('#signUp').click(function() {
     event.preventDefault(); //this prevents code breaking when no data is found
-    let userName = $('#regUsername').val();
-    let email = $('#regEmail').val();
-    let password = $('#regPassword').val();
+    let userName = $('#floatingRegUsername').val();
+    let email = $('#floatingRegEmail').val();
+    let password = $('#floatingRegPassword').val();
     console.log(userName, email, password);
 
     if (userName == '' || email == '' || password == '') {
@@ -92,8 +91,8 @@ var results = document.querySelector('#results')
   // Login Method ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   $('#login').click(function() {
     event.preventDefault();
-    let userName = $('#userName').val();
-    let password = $('#password').val();
+    let userName = $('#floatingUserName').val();
+    let password = $('#floatingPassword').val();
 
     console.log(userName,
       password); //remove after development for security
@@ -117,8 +116,8 @@ var results = document.querySelector('#results')
             );
           } else if (user == 'not authorized') {
             alert('Please  try with correct details');
-            $('#username').val('');
-            $('#password').val('');
+            $('#floatingUserName').val('');
+            $('#floatingPassword').val('');
           } else {
             sessionStorage.setItem('userID', user['_id']);
             sessionStorage.setItem('userName', user['username']);
@@ -138,33 +137,33 @@ var results = document.querySelector('#results')
 
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   var logout = document.querySelectorAll('.logoutBtn')
-    for (var i = 0; i < logout.length; i++) {
-      logout[i].onclick = function(){
-        sessionStorage.clear();
-        console.log('You are logged out');
-        console.log(sessionStorage);
-        location.href = "index.html";
-      }
+  for (var i = 0; i < logout.length; i++) {
+    logout[i].onclick = function() {
+      sessionStorage.clear();
+      console.log('You are logged out');
+      console.log(sessionStorage);
+      location.href = "index.html";
     }
+  }
 
 
   // $('.header-user').text(sessionStorage.getItem('userName'));
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   $('#listItem').click(function() {
     event.preventDefault();
-    let listTitle = $('#listTitle').val();
-    let price = $('#listPrice').val();
-    let genre = $('#listGenre').val();
-    let listConsole = $('#listConsole').val();
-    let description = $('#listDescription').val();
-    let imgUrl = $('#listImg').val();
-    let condition = $('#listCondition').val();
+    let listTitle = $('#floatingListTitle').val();
+    let price = $('#floatingListPrice').val();
+    let genre = $('#floatingListGenre').val();
+    let listConsole = $('#floatingListConsole').val();
+    let description = $('#floatingListDescription').val();
+    let imgUrl = $('#floatingListImg').val();
+    let condition = $('#floatingListCondition').val();
     let userId = sessionStorage.getItem('userID');
-
+    console.log(userId);
     console.log(listTitle, price); //remove after development for security
 
     if (listTitle == '' || price == '') {
@@ -185,10 +184,9 @@ var results = document.querySelector('#results')
             genre: genre,
             description: description,
             condition: condition,
-            seller: "bob",
             itemLocation: 'south',
             created_at: Date.now(),
-            user_id:userId
+            user_id: userId
           },
           success: function(product) {
 
@@ -206,11 +204,11 @@ var results = document.querySelector('#results')
   });
 
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// display all results on landing page::::::::::::::::::::::::::::::::::::::::::::
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // display all results on landing page::::::::::::::::::::::::::::::::::::::::::::
+  // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-function showAllResults(){
+  function showAllResults() {
 
     $.ajax({
       url: `http://localhost:3002/allProductsFromDB`,
@@ -225,15 +223,17 @@ function showAllResults(){
           // create card div for each item
           var productCard = document.createElement("div")
           results.appendChild(productCard)
-          productCard.classList.add('card', 'mx-4', 'my-4', 'lg-4');
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
-          productCard.innerHTML =`
+          productCard.innerHTML = `
+          <div class="card h-100">
             <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
               <p class="card-text">${productsFromMongo[i].description}</p>
               <p class="price">${productsFromMongo[i].price}</p>
             </div>
+          </div>
           `
         }
       }, // submit success fuction ends
@@ -241,18 +241,18 @@ function showAllResults(){
         console.log("");
       }
     }) //ajax
-}
+  }
 
-if (results) {
-  showAllResults()
-}
-
-
+  if (results) {
+    showAllResults()
+  }
 
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   // $('#filter').click(function() {
   //   selectedGenre =  document.querySelector('#filterGenre').value
@@ -262,7 +262,7 @@ if (results) {
   //     type: 'GET',
   //     dataType: 'json',
   //
-  //     success: function(projectsFromMongo) {
+  //     success: function(productsFromMongo) {
   //       var i;
   //
   //       for (i = 0; i < productsFromMongo.length; i++) {
@@ -276,23 +276,23 @@ if (results) {
   //     }, // submit success fuction ends
   //     error: function() {}
   //   }) //ajax
-  // }) // Submit/all projects from mongo call ends
+  // }) // Submit/all products from mongo call ends
 
 
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  //    Show user listings on my list .html :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //    Show user listings on my - list html :::::::::::::::::::::::::::::::::::::::::
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-var listingContainer = document.querySelector('#listingContainer')
-  function showUserListings(){
+  var listingContainer = document.querySelector('#listingContainer')
+
+  function showUserListings() {
     var currentUser = sessionStorage.getItem('userID');
-    console.log(currentUser + ' is the man');
 
     $.ajax({
       url: `http://localhost:3002/allProductsFromDB/userListings`,
       type: 'GET',
       dataType: 'json',
-      data:{
+      data: {
         user_id: currentUser
       },
       success: function(productsFromMongo) {
@@ -305,7 +305,7 @@ var listingContainer = document.querySelector('#listingContainer')
           listingContainer.appendChild(productCard)
           productCard.classList.add('card', 'mx-4', 'my-4');
           // fill the cards content
-          productCard.innerHTML =`
+          productCard.innerHTML = `
             <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
@@ -313,44 +313,156 @@ var listingContainer = document.querySelector('#listingContainer')
               <p class="price">${productsFromMongo[i].price}</p>
             </div>
             <div class="card-footer bg-transparent align-self-end">
-              <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" value=${productsFromMongo[i].title} class="btn btn-outline-warning"><i class=" edit fa fa-pencil" aria-hidden="true"></i>
+              <div class="btn-group" role="group" aria-label="basic outlined example">
+                <button type="button" value=${productsFromMongo[i].name} class="btn btn-outline-warning"><i class="edit fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button type="button" value=${productsFromMongo[i].title} class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
+                <button type="button" value=${productsFromMongo[i].name} class="btn btn-outline-warning"><i class="fa fa-trash deleteItem" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
           `
         }
 
-        // Update Event Listener::::::::::::::::::::::::::::::::::::::::::::::::
+        // Update Listing Even Listener::::::::::::::::::::::::::::::::::::::::::::::::
         document.addEventListener('click', function(e) {
           // define the target objects by class name
           if (e.target.classList.contains('fa-pencil')) {
-            console.log("bam bam, bam");
 
-            // find a match between a button value and project name
+            // find a match between a button value and product name
             for (var i = 0; i < productsFromMongo
               .length; i++) {
-              if (productsFromMongo[i].title === e.target.value) {
+              if (productsFromMongo[i].name == e.target.parentNode.value) {
                 selection = i;
-                console.log(productsFromMongo[selection]
-                  .title);
-
-                $('#updateProductForm').fadeIn(500)
-
-                e.target.parentNode.parentNode.remove()
-                // updateProduct()
-                $('.oldTitle').text(productsFromMongo[
-                    selection]
-                  .title)
-                  $("#updateProductForm").modal("show");
+                console.log(productsFromMongo[selection].name);
+                // e.target.parentNode.parentNode.remove()
+                $("#updateProductForm").modal("show");
+                updateProduct()
               }
             }
           }
         }); // Event listner ends
 
 
+        // Delete Event Listener:::::::::::::::::::::::::::::::::::::::::::::::::
+    document.addEventListener('click', function(e) {
+      // define the target objects by class name
+
+      if (e.target.classList.contains('deleteItem')) {
+        // find a match between a button value and product name
+        for (var i = 0; i < productsFromMongo
+          .length; i++) {
+          if (productsFromMongo[i].name == e.target
+            .parentNode.value) {
+            selection = i;
+            console.log(selection);
+          } //if value matched object ends
+        } // loop ends
+
+        $('.delete-modal').modal('show')
+        $('#closeDelOverlay').click(function() {
+          $('.delete-modal').modal('hide')
+        })
+        $("#confirmDelete").click(function() {
+          $('.delete-modal').modal('hide')
+          // e.target.parentNode.parentNode.remove()
+          deleteProduct()
+        })
+      } // if target ends
+    }); // Event listner ends
+
+
+        //update the product:::::::::::::::::::::::::::::::::::::::::::::::::::
+        function updateProduct() {
+          // Prefilling the forms with current values
+          $('#upProductName').val(productsFromMongo[selection].name);
+          $('#upProductPrice').val(productsFromMongo[selection].price);
+          $('#upProductGenre').val(productsFromMongo[selection].genre);
+          $('#upProductConsole').val(productsFromMongo[selection].console);
+          $('#upProductCondition').val(productsFromMongo[selection].condition);
+          $('#upProductImg').val(productsFromMongo[selection].image);
+          $('#upProductDecription').val(productsFromMongo[selection].description);
+
+          // Button to corfirm updates
+          $('#updateListingConfirm').click(function() {
+            console.log("what are you doing?");
+            event.preventDefault();
+            let productId = productsFromMongo[selection]._id;
+            let productName = $('#upProductName').val()
+            let productPrice = $('#upProductPrice').val();
+            let productGenre = $('#upProductGenre').val();
+            let productConsole = $('#upProductConsole').val();
+            let productDescription = $('#upProductDecription').val()
+            let productCondition = $('#upProductCondition').val();
+            let productImg = $('#upProductImg').val();
+            let userid = sessionStorage.getItem('userID');
+
+
+            $.ajax({
+              url: `http://localhost:3002/updateProduct/${productId}`,
+              type: 'PATCH',
+              data: {
+                name: productName,
+                price:productPrice,
+                genre:productGenre,
+                console:productConsole,
+                description: productDescription,
+                condition: productCondition,
+                image: productImg,
+                _id:productId,
+                user_id: userid
+              },
+              success: function(data) {
+                console.log(data);
+                console.log("you pretty good mate");
+                if (data ==
+                  '401 error: user has no permission to update'
+                ) {
+                  alert(
+                    '401 error: user has no permission to update'
+                  );
+                } else {
+                  alert('updated');
+                } //else
+
+              }, //success
+              error: function() {
+                console.log('error:cannot call api');
+              } //error
+            }) //ajax
+            // } //if
+          }) //updateProduct click function
+        } //update product function
+
+
+        function deleteProduct() {
+              event.preventDefault();
+              // if (!sessionStorage['userID']) {
+              //   alert('401 permission denied');
+              //   return;
+              // };
+
+              let productId = productsFromMongo[selection]._id;
+
+              $.ajax({
+                url: `http://localhost:3002/deleteProduct/${productId}`,
+                type: 'DELETE',
+                data: {
+                  user_id: sessionStorage['userID']
+                },
+                success: function(data) {
+                  console.log(data);
+                  console.log("deleted");
+                  if (data == 'deleted') {
+                    // alert('deleted');
+                  } else {
+                    alert('Enter a valid id');
+                  } //else
+                }, //success
+                error: function() {
+                  console.log('error: cannot call api');
+                } //error
+              }) //ajax
+            } // Delete Product Funtion EN
 
 
 
@@ -358,14 +470,18 @@ var listingContainer = document.querySelector('#listingContainer')
 
 
 
-      }, // submit success fuction ends
+
+
+
+
+      }, // Show User Listings success function ends
       error: function() {}
-    }) //ajax
+    }) // patch ajax ends
+  } // show user listings function ends
+
+
+
+  if (listingContainer) {
+    showUserListings();
   }
-
-if (listingContainer) {
-  showUserListings();
-}
-
-
 }); // doc ready ends
