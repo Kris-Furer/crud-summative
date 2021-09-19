@@ -59,7 +59,7 @@ $(document).ready(function() {
 
     } else {
       $.ajax({
-        url: `${url}/registerUser`,
+        url: `http://localhost:3002/registerUser`,
         type: 'POST',
         data: {
           username: userName,
@@ -139,6 +139,7 @@ $(document).ready(function() {
 
 
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
   var logout = document.querySelector('#logoutBtn');
     logout.onclick = function() {
       console.log('You are logged out');
@@ -223,10 +224,11 @@ $(document).ready(function() {
           // create parent card div for each item
           var productCard = document.createElement("div");
           results.appendChild(productCard);
-          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3' );
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
           productCard.value = productsFromMongo[i].name
-          productCard.innerHTML = `<div class="card h-100">
+          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop2">
 
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
             <div value= "${productsFromMongo[i].name}" class="card-body">
@@ -235,7 +237,7 @@ $(document).ready(function() {
               <p class="price">${productsFromMongo[i].price}</p>
             </div>
           </div>
-          ` ;
+          `;
         }
 
         // Find which card the user has clicked
@@ -248,9 +250,9 @@ $(document).ready(function() {
             // find a match between a button value and product name
             for (var i = 0; i < productsFromMongo
               .length; i++) {
-              if ( e.target.dataset.name == productsFromMongo[i].name) {
-               selection = i;
-               console.log("match!");
+              if (e.target.dataset.name == productsFromMongo[i].name) {
+                selection = i;
+                console.log("match!");
                 console.log(productsFromMongo[selection].name);
                 console.log(selection);
                 console.log(productsFromMongo[i]);
@@ -373,7 +375,7 @@ $(document).ready(function() {
             for (var i = 0; i < productsFromMongo
               .length; i++) {
               if (productsFromMongo[i].name == e.target.parentNode.value) {
-               selection = i;
+                selection = i;
                 console.log(productsFromMongo[selection].name);
                 console.log(selection);
                 console.log(productsFromMongo[i]);
@@ -387,43 +389,43 @@ $(document).ready(function() {
 
 
         // Delete Event Listener:::::::::::::::::::::::::::::::::::::::::::::::::
-    document.addEventListener('click', function(e) {
-      // define the target objects by class name
+        document.addEventListener('click', function(e) {
+          // define the target objects by class name
 
-      if (e.target.classList.contains('deleteItem')) {
-        // find a match between a button value and product name
-        for (var i = 0; i < productsFromMongo
-          .length; i++) {
-          if (productsFromMongo[i].name == e.target
-            .parentNode.value) {
-          selectedToDelete = i;
-          console.log(productsFromMongo[selectedToDelete]);
-          console.log(selectedToDelete);
-          } //if value matched object ends
+          if (e.target.classList.contains('deleteItem')) {
+            // find a match between a button value and product name
+            for (var i = 0; i < productsFromMongo
+              .length; i++) {
+              if (productsFromMongo[i].name == e.target
+                .parentNode.value) {
+                selectedToDelete = i;
+                console.log(productsFromMongo[selectedToDelete]);
+                console.log(selectedToDelete);
+              } //if value matched object ends
 
-          $('.delete-modal').modal('show');
-          $('#closeDelOverlay').click(function() {
-            $('.delete-modal').modal('hide');
-          });
-          $("#confirmDelete").click(function() {
-            $('.delete-modal').modal('hide');
-            console.log(productsFromMongo[selectedToDelete].name);
-            console.log(selectedToDelete);
-            // e.target.parentNode.parentNode.remove()
-            deleteProduct();
-            console.log(productsFromMongo[selectedToDelete]._id);
-          });
+              $('.delete-modal').modal('show');
+              $('#closeDelOverlay').click(function() {
+                $('.delete-modal').modal('hide');
+              });
+              $("#confirmDelete").click(function() {
+                $('.delete-modal').modal('hide');
+                console.log(productsFromMongo[selectedToDelete].name);
+                console.log(selectedToDelete);
+                // e.target.parentNode.parentNode.remove()
+                deleteProduct();
+                console.log(productsFromMongo[selectedToDelete]._id);
+              });
 
-        } // loop ends
-
-
-
-      } // if target ends
-
-    }); // Event listner ends
+            } // loop ends
 
 
-    function deleteProduct() {
+
+          } // if target ends
+
+        }); // Event listner ends
+
+
+        function deleteProduct() {
           // event.preventDefault();
           // if (!sessionStorage['userID']) {
           //   alert('401 permission denied');
@@ -487,13 +489,13 @@ $(document).ready(function() {
               type: 'PATCH',
               data: {
                 name: productName,
-                price:productPrice,
-                genre:productGenre,
-                console:productConsole,
+                price: productPrice,
+                genre: productGenre,
+                console: productConsole,
                 description: productDescription,
                 condition: productCondition,
                 image: productImg,
-                _id:productId,
+                _id: productId,
                 user_id: userid
               },
               success: function(data) {
@@ -519,10 +521,6 @@ $(document).ready(function() {
             // } //if
           }); //updateProduct click function
         } //update product function
-
-
-
-
 
 
 
