@@ -41,14 +41,17 @@
         <form class="d-flex">
           <!-- <button id="thisone" class="btn btn-warning logoutBtn">Logout</button> -->
         </form>
-        <button id="logoutBtn" class="btn btn-warning logoutBtn">Logout</button>
+        <a href="index.html">
+          <button id="logoutBtn" class="btn btn-warning logoutBtn">Logout</button>
+        </a>
+
       </div>
     </div>
   </nav>
 
   <main>
     <div class="px-4 py-5 text-center">
-      <h1 id='productH1' class="fw-bold">Welcome to RetroStop</h1>
+      <h1 id='productH1' class="fw-bold">Welcome to RetroStop, <span class="header-user"></span>!</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4"></p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
@@ -65,21 +68,21 @@
   </div>
 
   <!-- product modal starts -->
-  <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+  <div class="modal fade" id="productModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel2">Filter</h5>
+          <h1 id='viewProducth1'>Product Title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="product-description p-3">
-              <h1>Product Title</h1>
-              <h6 id="location">located in Wellington</h6>
-              <h5>$ 39.00</h5>
-              <p>
+
+              <img width="100%" id="viewProductImg" class="rounded mb-4" src="" alt="">
+              <h6>Located in Wellington</h6>
+              <h5 id="viewProductPrice">$39.00</h5>
+              <p id="viewProductDescription">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore
                 magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
