@@ -140,15 +140,15 @@ $(document).ready(function() {
 
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-  var logout = document.querySelector('#logoutBtn');
-    logout.onclick = function() {
-      console.log('You are logged out');
-      console.log(sessionStorage);
-      window.location = "index.html";
-  }
+  // var logout = document.querySelector('#logoutBtn');
+  //   logout.onclick = function() {
+  //     console.log('You are logged out');
+  //     console.log(sessionStorage);
+  //     window.location = "index.html";
+  // }
 
 
-  // $('.header-user').text(sessionStorage.getItem('userName'));
+  $('.header-user').text(sessionStorage.getItem('userName'));
 
   // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -257,7 +257,7 @@ $(document).ready(function() {
                 console.log(selection);
                 console.log(productsFromMongo[i]);
 
-                window.location = 'product.html';
+                $("#productModal").modal("show");
 
                 viewProduct()
 
@@ -269,10 +269,10 @@ $(document).ready(function() {
 
         function viewProduct(){
         $('#viewProducth1').text(productsFromMongo[selection].name)
-        $('#viewProductPrice').text(productsFromMongo[selection].price)
+        $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
         $('#viewProductDescription').text(productsFromMongo[selection].description)
-        $('#viewProductImg').src(productsFromMongo[selection].image_url)
-
+        var viewProductImg = document.querySelector('#viewProductImg')
+          viewProductImg.src = productsFromMongo[selection].image
 
 
         }
