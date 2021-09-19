@@ -3,6 +3,7 @@ $(document).ready(function() {
   // Declaring variables to avoid scope issues later
   var selectedToDelete = ["defined later"];
   var selection = ["defined later"];
+  var viewProdh1 = document.querySelector('#viewProduct');
   // Getting config.json from front end
 
 
@@ -138,18 +139,16 @@ $(document).ready(function() {
 
 
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  var logout = document.querySelectorAll('.logoutBtn');
-  // for (var i = 0; i < logout.length; i++) {
-    logout.onclick = function() {
-      sessionStorage.clear();
-      console.log('You are logged out');
-      console.log(sessionStorage);
-      location.href = "index.html";
-    };
+
+  // var logout = document.querySelector('#logoutBtn');
+  //   logout.onclick = function() {
+  //     console.log('You are logged out');
+  //     console.log(sessionStorage);
+  //     window.location = "index.html";
   // }
 
 
-  // $('.header-user').text(sessionStorage.getItem('userName'));
+  $('.header-user').text(sessionStorage.getItem('userName'));
 
   // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // Add Listing method:::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -258,18 +257,25 @@ $(document).ready(function() {
                 console.log(selection);
                 console.log(productsFromMongo[i]);
 
-                $('#productH1').text('hi')
-                console.log($("#productH1"));
-                // window.location = 'product.html';
+                $("#productModal").modal("show");
 
-                // updateProduct();
+                viewProduct()
+
               }
             }
           }
         }); // Event listner ends
 
 
+        function viewProduct(){
+        $('#viewProducth1').text(productsFromMongo[selection].name)
+        $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
+        $('#viewProductDescription').text(productsFromMongo[selection].description)
+        var viewProductImg = document.querySelector('#viewProductImg')
+          viewProductImg.src = productsFromMongo[selection].image
 
+
+        }
 
 
       }, // submit success fuction ends
