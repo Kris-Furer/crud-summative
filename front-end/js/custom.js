@@ -23,11 +23,6 @@ $(document).ready(function() {
 
   }); //ajax
 
-
-
-
-
-
   // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // Fade Login screen to sign up screen
   $("#toSignUp").click(function() {
@@ -267,11 +262,11 @@ $(document).ready(function() {
         }); // Event listner ends
 
 
-        function viewProduct(){
-        $('#viewProducth1').text(productsFromMongo[selection].name)
-        $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
-        $('#viewProductDescription').text(productsFromMongo[selection].description)
-        var viewProductImg = document.querySelector('#viewProductImg')
+        function viewProduct() {
+          $('#viewProducth1').text(productsFromMongo[selection].name)
+          $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
+          $('#viewProductDescription').text(productsFromMongo[selection].description)
+          var viewProductImg = document.querySelector('#viewProductImg')
           viewProductImg.src = productsFromMongo[selection].image
 
 
@@ -346,9 +341,10 @@ $(document).ready(function() {
           // create card div for each item
           var productCard = document.createElement("div");
           listingContainer.appendChild(productCard);
-          productCard.classList.add('card', 'mx-4', 'my-4');
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
           productCard.innerHTML = `
+          <div class="card h-100">
             <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
@@ -363,6 +359,7 @@ $(document).ready(function() {
                 </button>
               </div>
             </div>
+          </div>
           `;
         }
 
@@ -521,15 +518,6 @@ $(document).ready(function() {
             // } //if
           }); //updateProduct click function
         } //update product function
-
-
-
-
-
-
-
-
-
       }, // Show User Listings success function ends
       error: function() {}
     }); // patch ajax ends
