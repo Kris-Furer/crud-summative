@@ -18,8 +18,7 @@
       <a class="navbar-brand" href="landing.html">
         <img src="img/logos/RetroStop-side.png" alt="RetroStop Logo" width="150">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
-        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -56,7 +55,7 @@
 
   <div class="container">
     <div id="listingContainer" class="card-group">
-    <!-- card starts -->
+      <!-- card starts -->
       <div class="card mx-4 my-4">
         <img src="img/SW.jpeg" class="card-img-top" alt="...">
         <div class="card-body">
@@ -128,6 +127,103 @@
       </div>
     </div>
   </div>
+
+  <!-- Updatemodal :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <div class="modal fade" id="updateProductForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Listing</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container my-3">
+            <form class="mx-3 ">
+              <!-- Title -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductName">Title</label>
+                <input type="text" class="form-control" id="upProductName" placeholder="Enter title">
+              </div>
+              <!-- Price -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductPrice">Price</label>
+                <input type="number" class="form-control" id="upProductPrice" placeholder="Enter price" min="0">
+              </div>
+              <!-- genre select -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductGenre">Genre</label>
+                <select class="form-control" id="upProductGenre">
+                  <option selected disabled>Please Select</option>
+                  <option>RPG</option>
+                  <option>Action</option>
+                  <option>Racing</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <!-- console select -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductConsole">Console</label>
+                <select class="form-control" id="upProductConsole">
+                  <option selected disabled>Please Select</option>
+                  <option>Playstation</option>
+                  <option>Xbox</option>
+                  <option>Gameboy</option>
+                  <option>Gameboy Advance</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="mb-1" for="upProductCondition">Condition</label>
+                <select class="form-control" id="upProductCondition">
+                  <option selected disabled>Please Select</option>
+                  <option>Poor</option>
+                  <option>Average</option>
+                  <option>Good</option>
+                  <option>Brand New</option>
+                </select>
+              </div>
+              <!-- image url -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductImg">Image Url</label>
+                <input type="text" class="form-control" id="upProductImg" placeholder="Enter image url">
+              </div>
+              <!-- Description -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductDecription">Enter Description</label>
+                <textarea class="form-control" id="upProductDecription" rows="3"></textarea>
+              </div>
+              <!-- <button id='updateListingConfirm' type="" class=" login-btn btn btn-warning btn-block my-3">Update Listingsssss</button> -->
+              <div id='updateListingConfirm' type="" class="btn btn-warning btn-block my-3">test</div>
+            </form>
+
+            <!-- Container ends -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal delete-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Are you sure?</h3>
+          <!-- Thoughts: commented out close button because you can already click close or the window to close modal -->
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span id='closeDelOverlay' aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+          <p>The project will be permanently deleted.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmDelete" type="button" class="login-btn">Delete</button>
+          <button id="closeDelOverlay" type="button" class="register-btn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>

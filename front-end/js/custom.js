@@ -25,9 +25,6 @@ $(document).ready(function() {
 
 
 
-
-
-
   // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // Fade Login screen to sign up screen
   $("#toSignUp").click(function() {
@@ -166,7 +163,7 @@ $(document).ready(function() {
     let imgUrl = $('#floatingListImg').val();
     let condition = $('#floatingListCondition').val();
     let userId = sessionStorage.getItem('userID');
-
+    console.log(userId);
     console.log(listTitle, price); //remove after development for security
 
     if (listTitle == '' || price == '') {
@@ -187,7 +184,6 @@ $(document).ready(function() {
             genre: genre,
             description: description,
             condition: condition,
-            seller: "bob",
             itemLocation: 'south',
             created_at: Date.now(),
             user_id: userId
@@ -266,7 +262,7 @@ $(document).ready(function() {
   //     type: 'GET',
   //     dataType: 'json',
   //
-  //     success: function(projectsFromMongo) {
+  //     success: function(productsFromMongo) {
   //       var i;
   //
   //       for (i = 0; i < productsFromMongo.length; i++) {
@@ -280,18 +276,17 @@ $(document).ready(function() {
   //     }, // submit success fuction ends
   //     error: function() {}
   //   }) //ajax
-  // }) // Submit/all projects from mongo call ends
+  // }) // Submit/all products from mongo call ends
 
 
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  //    Show user listings  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  //    Show user listings on my - list html :::::::::::::::::::::::::::::::::::::::::
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   var listingContainer = document.querySelector('#listingContainer')
 
   function showUserListings() {
     var currentUser = sessionStorage.getItem('userID');
-    console.log(currentUser + ' is the man');
 
     $.ajax({
       url: `http://localhost:3002/allProductsFromDB/userListings`,
@@ -318,23 +313,175 @@ $(document).ready(function() {
               <p class="price">${productsFromMongo[i].price}</p>
             </div>
             <div class="card-footer bg-transparent align-self-end">
-              <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+              <div class="btn-group" role="group" aria-label="basic outlined example">
+                <button type="button" value=${productsFromMongo[i].name} class="btn btn-outline-warning"><i class="edit fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
+                <button type="button" value=${productsFromMongo[i].name} class="btn btn-outline-warning"><i class="fa fa-trash deleteItem" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
           `
         }
-      }, // submit success fuction ends
+
+        // Update Listing Even Listener::::::::::::::::::::::::::::::::::::::::::::::::
+        document.addEventListener('click', function(e) {
+          // define the target objects by class name
+          if (e.target.classList.contains('fa-pencil')) {
+
+            // find a match between a button value and product name
+            for (var i = 0; i < productsFromMongo
+              .length; i++) {
+              if (productsFromMongo[i].name == e.target.parentNode.value) {
+                selection = i;
+                console.log(productsFromMongo[selection].name);
+                // e.target.parentNode.parentNode.remove()
+                $("#updateProductForm").modal("show");
+                updateProduct()
+              }
+            }
+          }
+        }); // Event listner ends
+
+
+        // Delete Event Listener:::::::::::::::::::::::::::::::::::::::::::::::::
+    document.addEventListener('click', function(e) {
+      // define the target objects by class name
+
+      if (e.target.classList.contains('deleteItem')) {
+        // find a match between a button value and product name
+        for (var i = 0; i < productsFromMongo
+          .length; i++) {
+          if (productsFromMongo[i].name == e.target
+            .parentNode.value) {
+            selection = i;
+            console.log(selection);
+          } //if value matched object ends
+        } // loop ends
+
+        $('.delete-modal').modal('show')
+        $('#closeDelOverlay').click(function() {
+          $('.delete-modal').modal('hide')
+        })
+        $("#confirmDelete").click(function() {
+          $('.delete-modal').modal('hide')
+          // e.target.parentNode.parentNode.remove()
+          deleteProduct()
+        })
+      } // if target ends
+    }); // Event listner ends
+
+
+        //update the product:::::::::::::::::::::::::::::::::::::::::::::::::::
+        function updateProduct() {
+          // Prefilling the forms with current values
+          $('#upProductName').val(productsFromMongo[selection].name);
+          $('#upProductPrice').val(productsFromMongo[selection].price);
+          $('#upProductGenre').val(productsFromMongo[selection].genre);
+          $('#upProductConsole').val(productsFromMongo[selection].console);
+          $('#upProductCondition').val(productsFromMongo[selection].condition);
+          $('#upProductImg').val(productsFromMongo[selection].image);
+          $('#upProductDecription').val(productsFromMongo[selection].description);
+
+          // Button to corfirm updates
+          $('#updateListingConfirm').click(function() {
+            console.log("what are you doing?");
+            event.preventDefault();
+            let productId = productsFromMongo[selection]._id;
+            let productName = $('#upProductName').val()
+            let productPrice = $('#upProductPrice').val();
+            let productGenre = $('#upProductGenre').val();
+            let productConsole = $('#upProductConsole').val();
+            let productDescription = $('#upProductDecription').val()
+            let productCondition = $('#upProductCondition').val();
+            let productImg = $('#upProductImg').val();
+            let userid = sessionStorage.getItem('userID');
+
+
+            $.ajax({
+              url: `http://localhost:3002/updateProduct/${productId}`,
+              type: 'PATCH',
+              data: {
+                name: productName,
+                price:productPrice,
+                genre:productGenre,
+                console:productConsole,
+                description: productDescription,
+                condition: productCondition,
+                image: productImg,
+                _id:productId,
+                user_id: userid
+              },
+              success: function(data) {
+                console.log(data);
+                console.log("you pretty good mate");
+                if (data ==
+                  '401 error: user has no permission to update'
+                ) {
+                  alert(
+                    '401 error: user has no permission to update'
+                  );
+                } else {
+                  alert('updated');
+                } //else
+
+              }, //success
+              error: function() {
+                console.log('error:cannot call api');
+              } //error
+            }) //ajax
+            // } //if
+          }) //updateProduct click function
+        } //update product function
+
+
+        function deleteProduct() {
+              event.preventDefault();
+              // if (!sessionStorage['userID']) {
+              //   alert('401 permission denied');
+              //   return;
+              // };
+
+              let productId = productsFromMongo[selection]._id;
+
+              $.ajax({
+                url: `http://localhost:3002/deleteProduct/${productId}`,
+                type: 'DELETE',
+                data: {
+                  user_id: sessionStorage['userID']
+                },
+                success: function(data) {
+                  console.log(data);
+                  console.log("deleted");
+                  if (data == 'deleted') {
+                    // alert('deleted');
+                  } else {
+                    alert('Enter a valid id');
+                  } //else
+                }, //success
+                error: function() {
+                  console.log('error: cannot call api');
+                } //error
+              }) //ajax
+            } // Delete Product Funtion EN
+
+
+
+
+
+
+
+
+
+
+
+      }, // Show User Listings success function ends
       error: function() {}
-    }) //ajax
-  }
+    }) // patch ajax ends
+  } // show user listings function ends
+
+
 
   if (listingContainer) {
     showUserListings();
   }
-
-
 }); // doc ready ends
