@@ -60,8 +60,6 @@ app.get('/allProductsFromDB',(req,res)=>{
   })
 })
 
-// var selectedGenre = document.querySelector('#filterGenre').val()
-
 // Products by genre
 app.get(`/allProductsFromDB/Genre`,(req,res)=>{
   Product.find({
@@ -123,7 +121,7 @@ app.get('/products/p=:id',(req,res)=>{
 
 //delete a product from database
 app.delete('/deleteProduct/:id',(req,res)=>{
-  const idParam = req.params._id;
+  const idParam = req.params.id;
   Product. findOne({_id:idParam}, (err,product)=>{
     if(product){
       Product.deleteOne({_id:idParam},err=>{
