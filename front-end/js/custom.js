@@ -1,6 +1,8 @@
 $(document).ready(function() {
-  var results = document.querySelector('#results')
-
+  var results = document.querySelector('#results');
+  // Declaring variables to avoid scope issues later
+  var selectedToDelete = ["defined later"];
+  var selection = ["defined later"];
   // Getting config.json from front end
 
 
@@ -18,7 +20,7 @@ $(document).ready(function() {
       console.log(error);
     }
 
-  }) //ajax
+  }); //ajax
 
 
 
@@ -136,14 +138,14 @@ $(document).ready(function() {
 
 
   // logout:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  var logout = document.querySelectorAll('.logoutBtn')
+  var logout = document.querySelectorAll('.logoutBtn');
   for (var i = 0; i < logout.length; i++) {
     logout[i].onclick = function() {
       sessionStorage.clear();
       console.log('You are logged out');
       console.log(sessionStorage);
       location.href = "index.html";
-    }
+    };
   }
 
 
@@ -190,7 +192,7 @@ $(document).ready(function() {
           },
           success: function(product) {
 
-            window.location = "landing.html"
+            window.location = "my-list.html";
 
           }, //success
           error: function() {
@@ -204,9 +206,9 @@ $(document).ready(function() {
   });
 
 
-  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  // display all results on landing page::::::::::::::::::::::::::::::::::::::::::::
-  // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  // display all results on landing page  :::::::::::::::::::::::::::::::::::::::::
+  // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   function showAllResults() {
 
@@ -218,33 +220,66 @@ $(document).ready(function() {
         console.log(productsFromMongo);
         console.log(url + "weirrrd");
         var i;
-
+        // Create all the cards on the home screen
         for (i = 0; i < productsFromMongo.length; i++) {
-          // create card div for each item
-          var productCard = document.createElement("div")
-          results.appendChild(productCard)
-          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
+          // create parent card div for each item
+          var productCard = document.createElement("div");
+          results.appendChild(productCard);
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3' );
           // fill the cards content
-          productCard.innerHTML = `
-          <div class="card h-100">
-            <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
-            <div class="card-body">
+          productCard.value = productsFromMongo[i].name
+          productCard.innerHTML = `<div class="card h-100">
+
+            <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
+            <div value= "${productsFromMongo[i].name}" class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
-              <p class="card-text">${productsFromMongo[i].description}</p>
+              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
               <p class="price">${productsFromMongo[i].price}</p>
             </div>
           </div>
-          `
+          ` ;
         }
+
+        // Find which card the user has clicked
+        document.addEventListener('click', function(e) {
+          // define the target objects by class name
+          if (e.target.classList.contains('viewItem')) {
+console.log("has view item");
+console.log(e.target.dataset.name);
+console.log(e.target);
+            // find a match between a button value and product name
+            for (var i = 0; i < productsFromMongo
+              .length; i++) {
+              if ( e.target.dataset.name == productsFromMongo[i].name) {
+               selection = i;
+               console.log("match!");
+                console.log(productsFromMongo[selection].name);
+                console.log(selection);
+                console.log(productsFromMongo[i]);
+
+                $('#productH1').text('hi')
+                console.log($("#productH1"));
+                // window.location = 'product.html';
+
+                // updateProduct();
+              }
+            }
+          }
+        }); // Event listner ends
+
+
+
+
+
       }, // submit success fuction ends
       error: function() {
         console.log("");
       }
-    }) //ajax
+    }); //ajax
   }
 
   if (results) {
-    showAllResults()
+    showAllResults();
   }
 
 
@@ -283,7 +318,7 @@ $(document).ready(function() {
   //    Show user listings on my - list html :::::::::::::::::::::::::::::::::::::::::
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-  var listingContainer = document.querySelector('#listingContainer')
+  var listingContainer = document.querySelector('#listingContainer');
 
   function showUserListings() {
     var currentUser = sessionStorage.getItem('userID');
@@ -298,11 +333,12 @@ $(document).ready(function() {
       success: function(productsFromMongo) {
         console.log(productsFromMongo);
         var i;
-        var listingContainer = document.querySelector('#listingContainer')
+        var listingContainer = document.querySelector('#listingContainer');
+        listingContainer.innerHTML = "";
         for (i = 0; i < productsFromMongo.length; i++) {
           // create card div for each item
-          var productCard = document.createElement("div")
-          listingContainer.appendChild(productCard)
+          var productCard = document.createElement("div");
+          listingContainer.appendChild(productCard);
           productCard.classList.add('card', 'mx-4', 'my-4');
           // fill the cards content
           productCard.innerHTML = `
@@ -314,13 +350,13 @@ $(document).ready(function() {
             </div>
             <div class="card-footer bg-transparent align-self-end">
               <div class="btn-group" role="group" aria-label="basic outlined example">
-                <button type="button" value=${productsFromMongo[i].name} class="btn btn-outline-warning"><i class="edit fa fa-pencil" aria-hidden="true"></i>
+                <button type="button" value="${productsFromMongo[i].name}" class="btn btn-outline-warning"><i class="edit fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button type="button" value=${productsFromMongo[i].name} class="btn btn-outline-warning"><i class="fa fa-trash deleteItem" aria-hidden="true"></i>
+                <button type="button" value="${productsFromMongo[i].name}" class="btn btn-outline-warning"><i class="fa fa-trash deleteItem" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
-          `
+          `;
         }
 
         // Update Listing Even Listener::::::::::::::::::::::::::::::::::::::::::::::::
@@ -332,11 +368,13 @@ $(document).ready(function() {
             for (var i = 0; i < productsFromMongo
               .length; i++) {
               if (productsFromMongo[i].name == e.target.parentNode.value) {
-                selection = i;
+               selection = i;
                 console.log(productsFromMongo[selection].name);
+                console.log(selection);
+                console.log(productsFromMongo[i]);
                 // e.target.parentNode.parentNode.remove()
                 $("#updateProductForm").modal("show");
-                updateProduct()
+                updateProduct();
               }
             }
           }
@@ -353,25 +391,67 @@ $(document).ready(function() {
           .length; i++) {
           if (productsFromMongo[i].name == e.target
             .parentNode.value) {
-            selection = i;
-            console.log(selection);
+          selectedToDelete = i;
+          console.log(productsFromMongo[selectedToDelete]);
+          console.log(selectedToDelete);
           } //if value matched object ends
+
+          $('.delete-modal').modal('show');
+          $('#closeDelOverlay').click(function() {
+            $('.delete-modal').modal('hide');
+          });
+          $("#confirmDelete").click(function() {
+            $('.delete-modal').modal('hide');
+            console.log(productsFromMongo[selectedToDelete].name);
+            console.log(selectedToDelete);
+            // e.target.parentNode.parentNode.remove()
+            deleteProduct();
+            console.log(productsFromMongo[selectedToDelete]._id);
+          });
+
         } // loop ends
 
-        $('.delete-modal').modal('show')
-        $('#closeDelOverlay').click(function() {
-          $('.delete-modal').modal('hide')
-        })
-        $("#confirmDelete").click(function() {
-          $('.delete-modal').modal('hide')
-          // e.target.parentNode.parentNode.remove()
-          deleteProduct()
-        })
+
+
       } // if target ends
+
     }); // Event listner ends
 
 
-        //update the product:::::::::::::::::::::::::::::::::::::::::::::::::::
+    function deleteProduct() {
+          // event.preventDefault();
+          // if (!sessionStorage['userID']) {
+          //   alert('401 permission denied');
+          //   return;
+          // };
+          console.log(selection = "play the game");
+
+          let productId = productsFromMongo[selectedToDelete]._id;
+
+          $.ajax({
+            url: `http://localhost:3002/deleteProduct/${productsFromMongo[selectedToDelete]._id}`,
+            type: 'DELETE',
+            data: {
+              user_id: sessionStorage['userID']
+            },
+            success: function(data) {
+              console.log(data);
+              console.log("deleted");
+              if (data == 'deleted') {
+
+                showUserListings();
+                // alert('deleted');
+              } else {
+                alert('Enter a valid id');
+              } //else
+            }, //success
+            error: function() {
+              console.log('error: cannot call api');
+            } //error
+          }); //ajax
+        } // Delete Product Funtion ENds
+
+
         function updateProduct() {
           // Prefilling the forms with current values
           $('#upProductName').val(productsFromMongo[selection].name);
@@ -387,11 +467,11 @@ $(document).ready(function() {
             console.log("what are you doing?");
             event.preventDefault();
             let productId = productsFromMongo[selection]._id;
-            let productName = $('#upProductName').val()
+            let productName = $('#upProductName').val();
             let productPrice = $('#upProductPrice').val();
             let productGenre = $('#upProductGenre').val();
             let productConsole = $('#upProductConsole').val();
-            let productDescription = $('#upProductDecription').val()
+            let productDescription = $('#upProductDecription').val();
             let productCondition = $('#upProductCondition').val();
             let productImg = $('#upProductImg').val();
             let userid = sessionStorage.getItem('userID');
@@ -422,47 +502,20 @@ $(document).ready(function() {
                   );
                 } else {
                   alert('updated');
+                  $("#updateProductForm").modal("hide");
+                  showUserListings();
                 } //else
 
               }, //success
               error: function() {
                 console.log('error:cannot call api');
               } //error
-            }) //ajax
+            }); //ajax
             // } //if
-          }) //updateProduct click function
+          }); //updateProduct click function
         } //update product function
 
 
-        function deleteProduct() {
-              event.preventDefault();
-              // if (!sessionStorage['userID']) {
-              //   alert('401 permission denied');
-              //   return;
-              // };
-
-              let productId = productsFromMongo[selection]._id;
-
-              $.ajax({
-                url: `http://localhost:3002/deleteProduct/${productId}`,
-                type: 'DELETE',
-                data: {
-                  user_id: sessionStorage['userID']
-                },
-                success: function(data) {
-                  console.log(data);
-                  console.log("deleted");
-                  if (data == 'deleted') {
-                    // alert('deleted');
-                  } else {
-                    alert('Enter a valid id');
-                  } //else
-                }, //success
-                error: function() {
-                  console.log('error: cannot call api');
-                } //error
-              }) //ajax
-            } // Delete Product Funtion EN
 
 
 
@@ -476,7 +529,7 @@ $(document).ready(function() {
 
       }, // Show User Listings success function ends
       error: function() {}
-    }) // patch ajax ends
+    }); // patch ajax ends
   } // show user listings function ends
 
 
