@@ -18,8 +18,7 @@
       <a class="navbar-brand" href="landing.html">
         <img src="img/logos/RetroStop-side.png" alt="RetroStop Logo" width="150">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
-        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -39,14 +38,17 @@
           </li>
         </ul>
         <form class="d-flex">
-          <button class="btn btn-warning" type="submit">Logout</button>
         </form>
+        <a href="index.html">
+          <button id=logoutBtn class="btn btn-warning" type="submit">Logout</button>
+        </a>
+
       </div>
     </div>
   </nav>
 
   <main>
-    <div class="px-4 py-5 my-5 text-center">
+    <div class="px-4 py-5 text-center">
       <h1 class="fw-bold">Your listings</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4"></p>
@@ -55,79 +57,102 @@
   </main>
 
   <div class="container">
-    <div id="listingContainer" class="card-group">
-    <!-- card starts -->
-      <div class="card mx-4 my-4">
-        <img src="img/SW.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-            content.
-            This content is a little bit longer.</p>
+    <div id="listingContainer" class="row justify-content-center">
+    </div>
+  </div>
+
+  <!-- Updatemodal :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <div class="modal fade" id="updateProductForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Listing</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="card-footer bg-transparent align-self-end">
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- card starts -->
-      <div class="card mx-4 my-4">
-        <img src="img/SW.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-            content.
-            This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer bg-transparent align-self-end">
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="card mx-4 my-4">
-        <img src="img/SW.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-            content.
-            This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer bg-transparent align-self-end">
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="card mx-4 my-4">
-        <img src="img/SW.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-            content.
-            This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer bg-transparent align-self-end">
-          <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+        <div class="modal-body">
+          <div class="container my-3">
+            <form class="mx-3 ">
+              <!-- Title -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductName">Title</label>
+                <input type="text" class="form-control" id="upProductName" placeholder="Enter title">
+              </div>
+              <!-- Price -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductPrice">Price</label>
+                <input type="number" class="form-control" id="upProductPrice" placeholder="Enter price" min="0">
+              </div>
+              <!-- genre select -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductGenre">Genre</label>
+                <select class="form-control" id="upProductGenre">
+                  <option selected disabled>Please Select</option>
+                  <option>RPG</option>
+                  <option>Action</option>
+                  <option>Racing</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <!-- console select -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductConsole">Console</label>
+                <select class="form-control" id="upProductConsole">
+                  <option selected disabled>Please Select</option>
+                  <option>Playstation</option>
+                  <option>Xbox</option>
+                  <option>Gameboy</option>
+                  <option>Gameboy Advance</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="mb-1" for="upProductCondition">Condition</label>
+                <select class="form-control" id="upProductCondition">
+                  <option selected disabled>Please Select</option>
+                  <option>Poor</option>
+                  <option>Average</option>
+                  <option>Good</option>
+                  <option>Brand New</option>
+                </select>
+              </div>
+              <!-- image url -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductImg">Image Url</label>
+                <input type="text" class="form-control" id="upProductImg" placeholder="Enter image url">
+              </div>
+              <!-- Description -->
+              <div class="form-group">
+                <label class="mb-1" for="upProductDecription">Enter Description</label>
+                <textarea class="form-control" id="upProductDecription" rows="3"></textarea>
+              </div>
+              <!-- <button id='updateListingConfirm' type="" class=" login-btn btn btn-warning btn-block my-3">Update Listingsssss</button> -->
+              <div id='updateListingConfirm' type="" class="btn btn-warning btn-block my-3">Update Listing</div>
+            </form>
+
+            <!-- Container ends -->
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal delete-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete listing</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>The listing will be permanently deleted.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmDelete" type="button" class="btn btn-warning btn-block my-3">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>

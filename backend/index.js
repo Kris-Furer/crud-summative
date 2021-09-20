@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const config = require('./config.json');
 const Product = require('./models/products.js');
 const User = require('./models/users.js');
+const product = require('./Products.json');
 
 const port = 3002;
 
@@ -27,6 +28,110 @@ app.get('/',(req,res)=> res.send('Hello! I am from the backend'))
 .catch(err=>{
   console.log(`DBConnectionError:${err.message}`);
 });
+
+
+//Product Methods:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+//post method to write or create a product in mongodb
+app.post('/addProduct',(req,res)=>{
+  const dbProduct = new Product({
+    _id : new mongoose.Types.ObjectId,
+    name : req.body.name,
+    price: req.body.price,
+    image_url : req.body.image_url,
+    console:req.body.console,
+    genre: req.body.genre,
+    description:req.body.description,
+    seller:req.body.seller,
+    itemLocation:req.body.itemLocation,
+    user_id :req.body.user_id
+  });
+  //save to the database and notify the user
+  dbProduct.save().then(result=>{
+    res.send(result);
+  }).catch(err=>res.send(err));
+})
+
+//retrieve objects or documents from the database
+app.get('/allProductsFromDB',(req,res)=>{
+  Product.find().
+  then(result=>{
+    res.send(result);
+  })
+})
+
+// Products by genre
+app.get(`/allProductsFromDB/Genre`,(req,res)=>{
+  Product.find({
+  genre:"RPG",
+  console:"GameBoy"
+  }).then(result=>{
+    res.send(result);
+  })
+})
+
+// Products by user
+app.get(`/allProductsFromDB/userListings`,(req,res)=>{
+  // Product find looks for a match
+  Product.find({
+  // query allows us to get get user id from the front end
+  user_id:req.query.user_id
+  }).then(result=>{
+    res.send(result);
+  });
+})
+
+
+//patch is to update the details of the objects
+app.patch('/updateProduct/:id',(req,res)=>{
+  const idParam = req.params.id;
+
+  Product.findById(idParam,(err,product)=>{
+    if (product['user_id'] == req.body.user_id){
+      const updatedProduct = {
+
+        name : req.body.name,
+        price: req.body.price,
+        image : req.body.image,
+        console:req.body.console,
+        genre: req.body.genre,
+        description:req.body.description
+
+      }
+      Product.updateOne({_id:idParam}, updatedProduct).
+      then(result=>{
+        res.send(result);
+      }).catch(err=> res.send(err));
+    } else{
+      res.send('error: product not found')
+    }//else
+  })
+})
+
+
+app.get('/products/p=:id',(req,res)=>{
+  const idParam = req.params.id;
+  for (let i =0; i<product.length; i++){
+    if (idParam.toString() === product[i].id.toString()){
+      res.json(product[i]);
+    }
+  }
+});
+
+
+//delete a product from database
+app.delete('/deleteProduct/:id',(req,res)=>{
+  const idParam = req.params.id;
+  Product. findOne({_id:idParam}, (err,product)=>{
+    if(product){
+      Product.deleteOne({_id:idParam},err=>{
+        res.send('deleted');
+    });
+    } else {
+      res.send('not found');
+    } //else
+  }).catch(err=> res.send(err));
+});//delete
 
 // User Methods :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // register a new user
@@ -73,132 +178,6 @@ app.post('/loginUser', (req,res)=>{
     }//outer if
   });//findOne
 });//post
-
-//Product Methods:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-//post method to write or create a product in mongodb
-app.post('/addProduct',(req,res)=>{
-  const dbProduct = new Product({
-    _id : new mongoose.Types.ObjectId,
-    name : req.body.name,
-    price: req.body.price,
-    image_url : req.body.image_url,
-    console:req.body.console,
-    genre: req.body.genre,
-    description:req.body.description,
-    seller:req.body.seller,
-    itemLocation:req.body.itemLocation,
-    user_id :req.body.user_id
-
-  });
-  //save to the database and notify the user
-  dbProduct.save().then(result=>{
-    res.send(result);
-  }).catch(err=>res.send(err));
-})
-
-//retrieve objects or documents from the database
-app.get('/allProductsFromDB',(req,res)=>{
-  Product.find().
-  then(result=>{
-    res.send(result);
-  })
-})
-
-// var selectedGenre = document.querySelector('#filterGenre').val()
-
-// Products by genre
-app.get(`/allProductsFromDB/Genre`,(req,res)=>{
-  Product.find({
-  genre:"RPG",
-  console:"GameBoy"
-  }).then(result=>{
-    res.send(result);
-  })
-})
-
-// Products by user
-app.get(`/allProductsFromDB/userListings`,(req,res)=>{
-  // Product find looks for a match
-  Product.find({
-  // query allows us to get get user id from the front end
-  user_id:req.query.user_id
-  }).then(result=>{
-    res.send(result);
-  });
-})
-
-//patch is to update the details of the objects
-app.patch('/updateProduct/:id',(req,res)=>{
-  const idParam = req.params.id;
-  Product.findById(idParam,(err,product)=>{
-    if (product['user_id'] == req.body.userId){
-      const updatedProduct = {
-        _id : new mongoose.Types.ObjectId,
-        name : req.body.name,
-        price: req.body.price,
-        image : req.body.image,
-        console:req.body.console,
-        genre: req.body.genre,
-        description:req.body.description,
-        seller:req.body.seller,
-        itemLocation:req.body.itemLocation,
-      }
-      Product.updateOne({_id:idParam}, updatedProduct).
-      then(result=>{
-        res.send(result);
-      }).catch(err=> res.send(err));
-    } else{
-      res.send('error: product not found')
-    }//else
-  })
-})
-
-//delete a product from database
-app.delete('/deleteProduct/:id',(req,res)=>{
-  const idParam = req.params.id;
-  Product. findOne({_id:idParam}, (err,product)=>{
-    if(product){
-      Product.deleteOne({_id:idParam},err=>{
-        res.send('deleted');
-    });
-    } else {
-      res.send('not found');
-    } //else
-  }).catch(err=> res.send(err));
-});//delete
-
-
-
-
-
-// //get method to access data from Products.json
-// //routing to the endpoint
-// app.get('/allProducts', (req,res)=>{
-//   res.json(product);
-// })
-
-// app.get('/products/p=:id',(req,res)=>{
-//   const idParam = req.params.id;
-//   for (let i =0; i<product.length; i++){
-//     if (idParam.toString() === product[i].id.toString()){
-//       res.json(product[i]);
-//     }
-//   }
-// });
-
-
-// app.get(`/allProductsFromDB/${genre}`,(req,res)=>{
-// // const genreParam = req.params.genre;
-// //   for (let i = 0; i < product.length; i++){
-// //     if (genre === product[i].length){
-// //       res.json(product[i]);
-// //       console.log(product[i]);
-// //     }
-// //   }
-// console.log('success');
-
-// });
 
 
 
