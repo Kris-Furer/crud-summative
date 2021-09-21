@@ -8,8 +8,9 @@
 	<link rel="stylesheet" href="https://use.typekit.net/jwi1eot.css">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.min.css">
-
+	<title>Login / Signup - Retrostop</title>
 </head>
+
 <body>
 	<div class="container">
 		<div class="row g-5">
@@ -22,12 +23,13 @@
 					<p>log into your account</p>
 				</div>
 
-				<!-- Login Form::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+				<!-- Login Form starts-->
 				<form class='login-form mx-3'>
+					<!-- username -->
 					<div class="form-group my-3 form-floating">
 						<input type="text" id="floatingUserName" class="form-control" aria-describedby="emailHelp"
 							placeholder="Enter your username">
-							<label for="floatingUserName">User Name</label>
+						<label for="floatingUserName">Username</label>
 					</div>
 					<!-- password -->
 					<div class="form-group my-3 form-floating">
@@ -38,49 +40,35 @@
 					<button id='login' type="submit" class=" login-btn btn btn-warning btn-block my-3">Log in</button>
 					<p class="text-center mb-5">Don't Have an account? <span id="toSignUp" class="sign-log">Sign Up</span></p>
 				</form>
-
+				<!-- login form ends -->
 
 				<!-- Sign Up form ::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
 				<form class='sign-up-form mx-3'>
+					<!-- username -->
 					<div class="form-group my-3 form-floating">
 						<input type="text" class="form-control" id="floatingRegUsername" aria-describedby="emailHelp"
 							placeholder="Enter your username">
-							<label for="floatingRegUsername">Username</label>
+						<label for="floatingRegUsername">Username</label>
 					</div>
+					<!-- email -->
 					<div class="form-group my-3 form-floating">
 						<input type="email" class="form-control" id="floatingRegEmail" placeholder="Enter your email">
 						<label for="floatingRegEmail">Email</label>
 					</div>
-
+					<!-- password -->
 					<div class="form-group my-3 form-floating">
 						<input type="password" class="form-control" id="floatingRegPassword" placeholder="Enter your password">
 						<label for="floatingRegPassword">Password</label>
 					</div>
-
-					<!-- <div class="form-group my-3">
-				<label for="confirmPass">Confirm Password</label>
-				<input type="password" class="form-control" id="confirmPass" placeholder="Password">
-			</div> -->
-
-
-			<button id="signUp" type="submit" class="login-btn btn btn-warning btn-block my-3">Sign Up</button>
-			<p class="text-center mb-5">Already have an account? <span id='toLogin' class="sign-log">Log in</span></p>
-		</form>
-
-
-
-
-
-					<!-- <button id="signUp" type="submit" class="login-btn btn btn-warning btn-block my-3">Sign Up</button>
-					<p class="text-center mb-5">Already have an account? <span id='toLogin' class="sign-log">Log in</span></p> -->
+					<!-- signup button -->
+					<button id="signUp" type="submit" class="login-btn btn btn-warning btn-block my-3">Sign Up</button>
+					<p class="text-center mb-5">Already have an account? <span id='toLogin' class="sign-log">Log in</span></p>
 				</form>
+				<!-- signup form ends -->
 			</div>
 		</div>
-
-		<!-- Container Ends -->
 	</div>
-
-	<!-- Scripts :::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
+	<!-- Container Ends -->
 
 	<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 	<script src="node_modules/animejs/lib/anime.min.js"></script>

@@ -1,3 +1,4 @@
+//import vars
 @import "colors";
 @import "headerSet";
 @import "buttons";
@@ -14,8 +15,6 @@ a {
     color: inherit;
   }
 }
-
-body {}
 
 h1,
 h2 {
@@ -38,7 +37,7 @@ img {
 }
 
 .orange {
-  color: #f78a30;
+  color: $primary;
 }
 
 .landing-logo {
@@ -135,6 +134,40 @@ img {
 
     .circle-4 {
       border: 4px solid #FBF38C;
+    }
+  }
+}
+
+.content {
+
+  .wrapper-1 {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrapper-2 {
+    padding: 30px;
+    text-align: center;
+
+    h1 {
+      font-size: 4em;
+      letter-spacing: 3px;
+      color: $text;
+      margin: 0 0 20px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.3em;
+      color: $text;
+      letter-spacing: 1px;
+    }
+
+    .go-home {
+      padding: 10px 50px;
+      margin: 30px 0;
     }
   }
 }
