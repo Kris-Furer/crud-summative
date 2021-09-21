@@ -219,7 +219,7 @@ $(document).ready(function() {
           // create parent card div for each item
           var productCard = document.createElement("div");
           results.appendChild(productCard);
-          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3', 'anime-card');
           // fill the cards content
           productCard.value = productsFromMongo[i].name
           productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
@@ -236,6 +236,18 @@ $(document).ready(function() {
             </div>
           </div>
           `;
+
+          anime({
+            targets: '.card',
+            translateY: -500,
+            delay: anime.stagger(500, {
+              start: 4000
+            }, {
+              from: 'first'
+            }),
+            duration: 2000,
+            loop: false
+          })
         }
 
         // Find which card the user has clicked
@@ -306,7 +318,9 @@ $(document).ready(function() {
                   alert('updated');
                 } //else
                 $("input[data-id='" + postID + "']").val('');
-                $(".commentBox[data-id='" + postID + "']").append(`<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
+                $(".commentBox[data-id='" + postID + "']").append(
+                  `<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`
+                )
               }, //success
               error: function() {
                 console.log('error:cannot call api');
@@ -584,4 +598,50 @@ $(document).ready(function() {
   if (listingContainer) {
     showUserListings();
   }
+
+  var circle1 = anime({
+    targets: ['.circle-1'],
+    translateY: -24,
+    translateX: 42,
+    direction: 'alternate',
+    loop: true,
+    elasticity: 400,
+    easing: 'easeInOutElastic',
+    duration: 1600,
+    delay: 800,
+  });
+
+  var circle2 = anime({
+    targets: ['.circle-2'],
+    translateY: 24,
+    direction: 'alternate',
+    loop: true,
+    elasticity: 400,
+    easing: 'easeInOutElastic',
+    duration: 1600,
+    delay: 800,
+  });
+
+  var circle3 = anime({
+    targets: ['.circle-3'],
+    translateY: -24,
+    direction: 'alternate',
+    loop: true,
+    elasticity: 400,
+    easing: 'easeInOutElastic',
+    duration: 1600,
+    delay: 800,
+  });
+
+  var circle4 = anime({
+    targets: ['.circle-4'],
+    translateY: 24,
+    translateX: -44,
+    direction: 'alternate',
+    loop: true,
+    elasticity: 400,
+    easing: 'easeInOutElastic',
+    duration: 1600,
+    delay: 800,
+  });
 }); // doc ready ends
