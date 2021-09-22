@@ -92,14 +92,27 @@ app.get('/allProductsFromDB', (req, res) => {
 })
 
 // Products by genre
-app.get(`/allProductsFromDB/Genre`, (req, res) => {
-  Product.find({
-    genre: "RPG",
-    console: "GameBoy"
-  }).then(result => {
+
+app.get(`/allProductsFromDB/Filter`, (req, res) => {
+const {genre, console, condition  } = req.query;
+
+let query = {};
+
+if (genre) {
+  query.genre = req.query.selectedGenre;
+}
+if (condition) {
+  query.condition = req.query.selectedCondition;
+}
+if (console) {
+  query.console = req.query.selectedConsole;
+}
+
+  Product.find(req.query).then(result => {
+
     res.send(result);
-  })
-})
+  });
+});
 
 // Products by user
 app.get(`/allProductsFromDB/userListings`, (req, res) => {

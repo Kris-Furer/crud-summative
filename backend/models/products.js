@@ -10,7 +10,8 @@ const productSchema = new mongoose.Schema({
   description: String,
   seller: String,
   itemLocation: String,
-  Condition: String,
+  condition: String,
+
   created_at: {
     type: Date,
     required: true,
