@@ -23,11 +23,6 @@ $(document).ready(function() {
 
   }); //ajax
 
-
-
-
-
-
   // User login  UI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // Fade Login screen to sign up screen
   $("#toSignUp").click(function() {
@@ -233,8 +228,11 @@ $(document).ready(function() {
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
             <div value= "${productsFromMongo[i].name}" class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
-              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
               <p class="price">${productsFromMongo[i].price}</p>
+              <p class="console">${productsFromMongo[i].console}</p>
+              <p class="genre">${productsFromMongo[i].genre}</p>
+              <p class="condition">${productsFromMongo[i].Condidtion}</p>
+              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
             </div>
           </div>
           `;
@@ -248,9 +246,9 @@ $(document).ready(function() {
             console.log(e.target.dataset.name);
             console.log(e.target);
             // find a match between a button value and product name
-            for (var i = 0; i < productsFromMongo
-              .length; i++) {
+            for (var i = 0; i < productsFromMongo.length; i++) {
               if (e.target.dataset.name == productsFromMongo[i].name) {
+                var comments = document.querySelector('.comment-accordion');
                 selection = i;
                 console.log("match!");
                 console.log(productsFromMongo[selection].name);
@@ -261,13 +259,32 @@ $(document).ready(function() {
 
                 viewProduct()
 
+                let commentElements = [];
+                if (productsFromMongo[i].comments !== null) {
+                  let commentList = productsFromMongo[i].comments;
+                  for (x = 1; x < commentList.length; x++) {
+                    commentElements += `<li>${commentList[x]}</li>`;
+
+                    comments.innerHTML =
+                      `<ul class="commentBox my-2" data-id="${productsFromMongo[i]._id}">${commentElements}</ul>
+                      <div class="form-group form-floating">
+                      <textarea style="height: 100px" id="floatingComment" class="form-control my-2" name="comment" placeholder="Leave a comment here" data-id="${productsFromMongo[i]._id}"></textarea>
+                      <label for="floatingComment">Leave a comment</label>
+                      </div>
+                      <button type="button" name="button" class="btn btn-warning btn-block my-3 commented" data-id="${productsFromMongo[i]._id}">Comment</button>`;
+
+
+                  }
+                }
+
+
               }
             }
           }
         }); // Event listner ends
 
         // comment Button
-        $(document).on('click', '.commented', function(event) {
+        $(document).on('click', '.commented' , function(event) {
           event.preventDefault();
           let postID = this.dataset.id;
           console.log("clicked");
@@ -293,8 +310,7 @@ $(document).ready(function() {
                   alert('updated');
                 } //else
                 $("input[data-id='" + postID + "']").val('');
-                $(".commentBox[data-id='" + postID + "']").append(`<li class="my-3">${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
-                showAllResults()
+                $(".commentBox[data-id='" + postID + "']").append(`<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
               }, //success
               error: function() {
                 console.log('error:cannot call api');
@@ -304,11 +320,11 @@ $(document).ready(function() {
         });
 
 
-        function viewProduct(){
-        $('#viewProducth1').text(productsFromMongo[selection].name)
-        $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
-        $('#viewProductDescription').text(productsFromMongo[selection].description)
-        var viewProductImg = document.querySelector('#viewProductImg')
+        function viewProduct() {
+          $('#viewProducth1').text(productsFromMongo[selection].name)
+          $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
+          $('#viewProductDescription').text(productsFromMongo[selection].description)
+          var viewProductImg = document.querySelector('#viewProductImg')
           viewProductImg.src = productsFromMongo[selection].image
 
 
@@ -333,65 +349,29 @@ $(document).ready(function() {
   //   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-  $('#setFilter').click(function() {
-    selectedGenre =  document.querySelector('#floatingFilterGenre').value
-    selectedConsole =  document.querySelector('#floatingFilterConsole').value
-    selectedCondition =  document.querySelector('#floatingFilterCondition').value
-    if (selectedConsole === "undefined" ) {
-      selectedConsole = undefined
-    };
-    if (selectedCondition  === "undefined" ) {
-      selectedCondition  = undefined
-    }
-    if (selectedGenre  === "undefined" ) {
-      selectedGenre  = undefined
-    }
-
-
-    $.ajax({
-      url: `http://localhost:3002/allProductsFromDB/Filter`,
-      type: 'GET',
-      dataType: 'json',
-      data:{
-        genre:selectedGenre,
-        console:selectedConsole,
-        condition:selectedCondition
-      },
-      success: function(productsFromMongo) {
-        var i;
-console.log(selectedCondition);
-console.log(productsFromMongo);
-        // Create all the cards on the home screen
-        results.innerHTML = ""
-        for (i = 0; i < productsFromMongo.length; i++) {
-          // create parent card div for each item
-          var productCard = document.createElement("div");
-          results.appendChild(productCard);
-          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
-          // fill the cards content
-          productCard.value = productsFromMongo[i].name
-          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop2">
-
-            <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
-            <div value= "${productsFromMongo[i].name}" class="card-body">
-              <h5 class="card-title">${productsFromMongo[i].name}</h5>
-              <p class="price">${productsFromMongo[i].price}</p>
-              <p class="console">${productsFromMongo[i].console}</p>
-              <p class="genre">${productsFromMongo[i].genre}</p>
-              <p class="condition">${productsFromMongo[i].condition}</p>
-              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
-            </div>
-          </div>
-          `;
-        }
-
-      }, // submit success fuction ends
-      error: function() {
-        console.log("cannot call api");
-      }
-    }) //ajax
-  }) // Submit/all products from mongo call ends
+  // $('#filter').click(function() {
+  //   selectedGenre =  document.querySelector('#filterGenre').value
+  //
+  //   $.ajax({
+  //     url: `/allProductsFromDB/Genre`,
+  //     type: 'GET',
+  //     dataType: 'json',
+  //
+  //     success: function(productsFromMongo) {
+  //       var i;
+  //
+  //       for (i = 0; i < productsFromMongo.length; i++) {
+  //         // $('.card-container').innerHTML +=`
+  //         //   input front end code here
+  //         //
+  //         // `
+  //
+  //       }
+  //
+  //     }, // submit success fuction ends
+  //     error: function() {}
+  //   }) //ajax
+  // }) // Submit/all products from mongo call ends
 
 
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -419,14 +399,17 @@ console.log(productsFromMongo);
           // create card div for each item
           var productCard = document.createElement("div");
           listingContainer.appendChild(productCard);
-          productCard.classList.add('card', 'mx-4', 'my-4');
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
           productCard.innerHTML = `
+          <div class="card h-100">
             <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">${productsFromMongo[i].name}</h5>
-              <p class="card-text">${productsFromMongo[i].description}</p>
-              <p class="price">${productsFromMongo[i].price}</p>
+            <h5 class="card-title">${productsFromMongo[i].name}</h5>
+            <p class="price">${productsFromMongo[i].price}</p>
+            <p class="console">${productsFromMongo[i].console}</p>
+            <p class="genre">${productsFromMongo[i].genre}</p>
+            <p class="condition">${productsFromMongo[i].Condidtion}</p>
             </div>
             <div class="card-footer bg-transparent align-self-end">
               <div class="btn-group" role="group" aria-label="basic outlined example">
@@ -436,6 +419,7 @@ console.log(productsFromMongo);
                 </button>
               </div>
             </div>
+          </div>
           `;
         }
 
@@ -594,15 +578,6 @@ console.log(productsFromMongo);
             // } //if
           }); //updateProduct click function
         } //update product function
-
-
-
-
-
-
-
-
-
       }, // Show User Listings success function ends
       error: function() {}
     }); // patch ajax ends

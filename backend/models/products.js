@@ -7,10 +7,10 @@ const productSchema = new mongoose.Schema({
   image: String,
   console:String,
   genre: String,
-  description:String,
-  seller:String,
-  itemLocation:String,
-  condition:String,
+  description: String,
+  seller: String,
+  itemLocation: String,
+  condition: String,
   created_at: {
     type: Date, required: true, default: Date.now },
   user_id: {
