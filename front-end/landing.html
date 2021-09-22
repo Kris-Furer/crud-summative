@@ -82,16 +82,7 @@
               <img width="100%" id="viewProductImg" class="rounded mb-4" src="" alt="">
               <h6>Located in Wellington</h6>
               <h5 id="viewProductPrice">$39.00</h5>
-              <p id="viewProductDescription">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                id est
-                laborum.
-              </p>
+              <p id="viewProductDescription"></p>
 
               <!-- accordion starts -->
               <div class="accordion pb-3" id="accordionExample">
@@ -99,21 +90,12 @@
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                       data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Ask something
+                      Comments
                     </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong>This is the first item's accordion body.</strong> It is shown by default, until the
-                      collapse
-                      plugin adds the appropriate classes that we use to style each element. These classes control the
-                      overall
-                      appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                      custom
-                      CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                      within the
-                      <code>.accordion-body</code>, though the transition does limit overflow.
+                    <div class="accordion-body comment-accordion">
                     </div>
                   </div>
                 </div>
@@ -219,8 +201,22 @@
   </div>
   <!-- modal content ends -->
 
+  <div class="wrapper container-fluid">
+    <div class='center'>
+      <div class='loader'>
+        <div class='circle circle-1'></div>
+        <div class='circle circle-2'></div>
+        <div class='circle circle-3'></div>
+        <div class='circle circle-4'></div>
+      </div>
+    </div>
+  </div>
+
+
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+  <script src="node_modules/animejs/lib/anime.min.js"></script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="js/loader.js"></script>
   <script src="js/custom.js"></script>
 </body>
 
