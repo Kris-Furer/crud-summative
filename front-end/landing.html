@@ -26,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="list-item.html">List an item</a>
+            <a class="nav-link" href="list-item.html">List an item</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Account</a>
@@ -39,10 +39,10 @@
           </li>
         </ul>
         <form class="d-flex">
-          <!-- <button id="thisone" class="btn btn-warning logoutBtn">Logout</button> -->
+          <!-- <button id="thisone" class="btn btn-primary logoutBtn">Logout</button> -->
         </form>
         <a href="index.html">
-          <button id="logoutBtn" class="btn btn-warning logoutBtn">Logout</button>
+          <button id="logoutBtn" class="btn btn-primary logoutBtn">Logout</button>
         </a>
 
       </div>
@@ -55,7 +55,7 @@
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4"></p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button class="btn btn-warning btn-lg px-4 gap-3" type="button" data-bs-toggle="modal"
+          <button class="btn btn-primary btn-lg px-4 gap-3" type="button" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop">Filter your results</button>
         </div>
       </div>
@@ -82,7 +82,9 @@
               <img width="100%" id="viewProductImg" class="rounded mb-4" src="" alt="">
               <h6>Located in Wellington</h6>
               <h5 id="viewProductPrice">$39.00</h5>
-              <p id="viewProductDescription"></p>
+              <p class= "viewProductDescription"></p>
+              <p id="viewProductCondition"></p>
+
 
               <!-- accordion starts -->
               <div class="accordion pb-3" id="accordionExample">
@@ -102,7 +104,7 @@
               </div>
               <!-- accordion ends -->
               <div class="d-grid">
-                <button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop3">Buy
                   Now</button>
               </div>
@@ -135,7 +137,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-warning">Confirm Purchase</button>
+          <button type="button" class="btn btn-primary">Confirm Purchase</button>
         </div>
       </div>
     </div>
@@ -185,6 +187,7 @@
                       <option>Average</option>
                       <option>Good</option>
                       <option>Brand New</option>
+
                     </select>
                     <label class="mb-1" for="floatingFilterCondition">Condition</label>
                   </div>
@@ -194,7 +197,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button id='setFilter' type="button" class="btn btn-warning">Filter</button>
+          <button id='setFilter' type="button" class="btn btn-primary">Filter</button>
         </div>
       </div>
     </div>

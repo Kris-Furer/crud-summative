@@ -228,10 +228,12 @@ $(document).ready(function() {
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
             <div value= "${productsFromMongo[i].name}" class="card-body">
               <h5 class="card-title">${productsFromMongo[i].name}</h5>
-              <p class="price">${productsFromMongo[i].price}</p>
+              <p class="price">$${productsFromMongo[i].price}</p>
+              <span class="fw-bold">Console</span>
               <p class="console">${productsFromMongo[i].console}</p>
+              <span class="fw-bold">Genre</span>
               <p class="genre">${productsFromMongo[i].genre}</p>
-              <p class="condition">${productsFromMongo[i].Condidtion}</p>
+
               <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
             </div>
           </div>
@@ -332,11 +334,12 @@ $(document).ready(function() {
 
 
         function viewProduct() {
-          $('#viewProducth1').text(productsFromMongo[selection].name)
-          $('#viewProductPrice').text("$" + productsFromMongo[selection].price)
-          $('#viewProductDescription').text(productsFromMongo[selection].description)
-          var viewProductImg = document.querySelector('#viewProductImg')
-          viewProductImg.src = productsFromMongo[selection].image
+          $('#viewProducth1').text(productsFromMongo[selection].name);
+          $('#viewProductPrice').text("$" + productsFromMongo[selection].price);
+          $('#viewProductDescription').text(productsFromMongo[selection].description);
+          var viewProductImg = document.querySelector('#viewProductImg');
+          viewProductImg.src = productsFromMongo[selection].image;
+          $('#viewProductCondition').text(productsFromMongo[selection].condition);
 
 
         }
@@ -386,8 +389,7 @@ $(document).ready(function() {
       },
       success: function(productsFromMongo) {
         var i;
-console.log(selectedCondition);
-console.log(productsFromMongo);
+
         // Create all the cards on the home screen
         results.innerHTML = ""
         for (i = 0; i < productsFromMongo.length; i++) {
