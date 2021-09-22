@@ -159,34 +159,34 @@
                   <!-- genre select -->
                   <div class="form-group form-floating">
                     <select class="form-select" id="floatingFilterGenre">
-                      <option selected disabled>Please Select</option>
+                      <option value ='undefined' selected>All</option>
                       <option>RPG</option>
                       <option>Action</option>
                       <option>Racing</option>
-                      <option>Other</option>
+                      <option value ='undefined'>Other</option>
                     </select>
                     <label class="mb-1" for="floatingFilterGenre">Genre</label>
                   </div>
                   <!-- console select -->
                   <div class="form-group form-floating">
                     <select class="form-select" id="floatingFilterConsole">
-                      <option selected disabled>Please Select</option>
+                      <option value ='undefined' selected >All</option>
                       <option>Playstation</option>
-                      <option>Xbox</option>
-                      <option>Gameboy</option>
+                      <option>X-Box</option>
+                      <option>GameBoy</option>
                       <option>Gameboy Advance</option>
                     </select>
                     <label class="mb-1" for="floatingFilterConsole">Console</label>
                   </div>
                   <div class="form-group form-floating">
                     <select class="form-select" id="floatingFilterCondition">
-                      <option selected disabled>Please Select</option>
+                      <option value ='undefined' selected >All</option>
                       <option>Poor</option>
                       <option>Average</option>
                       <option>Good</option>
                       <option>Brand New</option>
                     </select>
-                    <label class="mb-1" for="floatingFilterCondition">Condidtion</label>
+                    <label class="mb-1" for="floatingFilterCondition">Condition</label>
                   </div>
                 </form>
               </div>
@@ -194,7 +194,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning">Filter</button>
+          <button id='setFilter' type="button" class="btn btn-warning">Filter</button>
         </div>
       </div>
     </div>

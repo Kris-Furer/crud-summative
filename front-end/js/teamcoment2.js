@@ -219,7 +219,7 @@ $(document).ready(function() {
           // create parent card div for each item
           var productCard = document.createElement("div");
           results.appendChild(productCard);
-          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3', 'anime-card');
+          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
           productCard.value = productsFromMongo[i].name
           productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
@@ -236,18 +236,6 @@ $(document).ready(function() {
             </div>
           </div>
           `;
-
-          anime({
-            targets: '.card',
-            translateY: -500,
-            delay: anime.stagger(500, {
-              start: 4000
-            }, {
-              from: 'first'
-            }),
-            duration: 2000,
-            loop: false
-          })
         }
 
         // Find which card the user has clicked
@@ -276,23 +264,27 @@ $(document).ready(function() {
                   let commentList = productsFromMongo[i].comments;
                   for (x = 1; x < commentList.length; x++) {
                     commentElements += `<li>${commentList[x]}</li>`;
+
+                    comments.innerHTML =
+                      `<ul class="commentBox my-2" data-id="${productsFromMongo[i]._id}">${commentElements}</ul>
+                      <div class="form-group form-floating">
+                      <textarea style="height: 100px" id="floatingComment" class="form-control my-2" name="comment" placeholder="Leave a comment here" data-id="${productsFromMongo[i]._id}"></textarea>
+                      <label for="floatingComment">Leave a comment</label>
+                      </div>
+                      <button type="button" name="button" class="btn btn-warning btn-block my-3 commented" data-id="${productsFromMongo[i]._id}">Comment</button>`;
+
+
                   }
                 }
 
-                comments.innerHTML =
-                  `<ul class="commentBox my-2" data-id="${productsFromMongo[i]._id}">${commentElements}</ul>
-                  <div class="form-group form-floating">
-                  <textarea style="height: 100px" id="floatingComment" class="form-control my-2" name="comment" placeholder="Leave a comment here" data-id="${productsFromMongo[i]._id}"></textarea>
-                  <label for="floatingComment">Leave a comment</label>
-                  </div>
-                  <button type="button" name="button" class="btn btn-warning btn-block my-3 commented" data-id="${productsFromMongo[i]._id}">Comment</button>`;
+
               }
             }
           }
         }); // Event listner ends
 
         // comment Button
-        $(document).on('click', '.commented', function(event) {
+        $(document).on('click', '.commented' , function(event) {
           event.preventDefault();
           let postID = this.dataset.id;
           console.log("clicked");
@@ -318,10 +310,7 @@ $(document).ready(function() {
                   alert('updated');
                 } //else
                 $("input[data-id='" + postID + "']").val('');
-
-                $(".commentBox[data-id='" + postID + "']").append(`<li class="my-3">${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
-                showAllResults()
-
+                $(".commentBox[data-id='" + postID + "']").append(`<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
               }, //success
               error: function() {
                 console.log('error:cannot call api');
@@ -360,65 +349,29 @@ $(document).ready(function() {
   //   Reset search with filters  ::::::::::::::::::::::::::::::::::::::::::::::::::::::
   // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-  $('#setFilter').click(function() {
-    selectedGenre =  document.querySelector('#floatingFilterGenre').value
-    selectedConsole =  document.querySelector('#floatingFilterConsole').value
-    selectedCondition =  document.querySelector('#floatingFilterCondition').value
-    if (selectedConsole === "undefined" ) {
-      selectedConsole = undefined
-    };
-    if (selectedCondition  === "undefined" ) {
-      selectedCondition  = undefined
-    }
-    if (selectedGenre  === "undefined" ) {
-      selectedGenre  = undefined
-    }
-
-
-    $.ajax({
-      url: `http://localhost:3002/allProductsFromDB/Filter`,
-      type: 'GET',
-      dataType: 'json',
-      data:{
-        genre:selectedGenre,
-        console:selectedConsole,
-        condition:selectedCondition
-      },
-      success: function(productsFromMongo) {
-        var i;
-console.log(selectedCondition);
-console.log(productsFromMongo);
-        // Create all the cards on the home screen
-        results.innerHTML = ""
-        for (i = 0; i < productsFromMongo.length; i++) {
-          // create parent card div for each item
-          var productCard = document.createElement("div");
-          results.appendChild(productCard);
-          productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
-          // fill the cards content
-          productCard.value = productsFromMongo[i].name
-          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop2">
-
-            <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
-            <div value= "${productsFromMongo[i].name}" class="card-body">
-              <h5 class="card-title">${productsFromMongo[i].name}</h5>
-              <p class="price">${productsFromMongo[i].price}</p>
-              <p class="console">${productsFromMongo[i].console}</p>
-              <p class="genre">${productsFromMongo[i].genre}</p>
-              <p class="condition">${productsFromMongo[i].condition}</p>
-              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
-            </div>
-          </div>
-          `;
-        }
-
-      }, // submit success fuction ends
-      error: function() {
-        console.log("cannot call api");
-      }
-    }) //ajax
-  }) // Submit/all products from mongo call ends
+  // $('#filter').click(function() {
+  //   selectedGenre =  document.querySelector('#filterGenre').value
+  //
+  //   $.ajax({
+  //     url: `/allProductsFromDB/Genre`,
+  //     type: 'GET',
+  //     dataType: 'json',
+  //
+  //     success: function(productsFromMongo) {
+  //       var i;
+  //
+  //       for (i = 0; i < productsFromMongo.length; i++) {
+  //         // $('.card-container').innerHTML +=`
+  //         //   input front end code here
+  //         //
+  //         // `
+  //
+  //       }
+  //
+  //     }, // submit success fuction ends
+  //     error: function() {}
+  //   }) //ajax
+  // }) // Submit/all products from mongo call ends
 
 
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -635,50 +588,4 @@ console.log(productsFromMongo);
   if (listingContainer) {
     showUserListings();
   }
-
-  var circle1 = anime({
-    targets: ['.circle-1'],
-    translateY: -24,
-    translateX: 42,
-    direction: 'alternate',
-    loop: true,
-    elasticity: 400,
-    easing: 'easeInOutElastic',
-    duration: 1600,
-    delay: 800,
-  });
-
-  var circle2 = anime({
-    targets: ['.circle-2'],
-    translateY: 24,
-    direction: 'alternate',
-    loop: true,
-    elasticity: 400,
-    easing: 'easeInOutElastic',
-    duration: 1600,
-    delay: 800,
-  });
-
-  var circle3 = anime({
-    targets: ['.circle-3'],
-    translateY: -24,
-    direction: 'alternate',
-    loop: true,
-    elasticity: 400,
-    easing: 'easeInOutElastic',
-    duration: 1600,
-    delay: 800,
-  });
-
-  var circle4 = anime({
-    targets: ['.circle-4'],
-    translateY: 24,
-    translateX: -44,
-    direction: 'alternate',
-    loop: true,
-    elasticity: 400,
-    easing: 'easeInOutElastic',
-    duration: 1600,
-    delay: 800,
-  });
 }); // doc ready ends
