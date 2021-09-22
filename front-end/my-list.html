@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/custom.min.css">
-  <title>Product</title>
+  <title>Your Listings</title>
 </head>
 
 <body>
+  <!-- nav starts -->
   <nav class="navbar navbar-expand-md navbar-light bg-light" aria-label="Fourth navbar example">
     <div class="container-fluid">
       <a class="navbar-brand" href="landing.html">
@@ -25,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="list-item.html">List an item</a>
+            <a class="nav-link" href="list-item.html">List an item</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Account</a>
@@ -42,26 +43,27 @@
         <a href="index.html">
           <button id=logoutBtn class="btn btn-warning" type="submit">Logout</button>
         </a>
-
       </div>
     </div>
   </nav>
+  <!-- nav ends -->
 
+  <!-- main header starts -->
   <main>
     <div class="px-4 py-5 text-center">
       <h1 class="fw-bold">Your listings</h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4"></p>
-      </div>
     </div>
   </main>
+  <!-- main header ends -->
 
+  <!-- product container starts -->
   <div class="container">
     <div id="listingContainer" class="row justify-content-center">
     </div>
   </div>
+  <!-- product container ends -->
 
-  <!-- Updatemodal :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- Update/edit modal starts -->
   <div class="modal fade" id="updateProductForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
@@ -104,6 +106,7 @@
                   <option>Gameboy Advance</option>
                 </select>
               </div>
+              <!-- condition select -->
               <div class="form-group">
                 <label class="mb-1" for="upProductCondition">Condition</label>
                 <select class="form-control" id="upProductCondition">
@@ -127,14 +130,15 @@
               <!-- <button id='updateListingConfirm' type="" class=" login-btn btn btn-warning btn-block my-3">Update Listingsssss</button> -->
               <div id='updateListingConfirm' type="" class="btn btn-warning btn-block my-3">Update Listing</div>
             </form>
-
-            <!-- Container ends -->
+            <!-- form ends -->
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- update/edit modal ends -->
 
+  <!-- delete modal -->
   <div class="modal delete-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -151,8 +155,7 @@
       </div>
     </div>
   </div>
-
-
+  <!-- delete modal -->
 
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
   <script src="node_modules/animejs/lib/anime.min.js"></script>

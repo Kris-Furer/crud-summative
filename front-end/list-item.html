@@ -8,17 +8,15 @@
   <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/custom.min.css">
-
-  <title>List an item</title>
+  <title>List an item - Retrostop</title>
 </head>
 
 <body>
   <div class="container my-3">
     <div class="row g-5">
       <div class="col-md-4 col-lg-5 mx-auto">
-
-        <header
-          class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+        <!-- header starts -->
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
           <a href="landing.html"
             class="d-flex align-items-center col-3 col-md-3 mb-md-0 text-dark text-decoration-none">
             <i class="fa fa-chevron-left fa-2x orange"></i>
@@ -26,8 +24,9 @@
           <h1 class='orange nav col-6 justify-content-center mb-md-0'>List an item</h1>
           <div class="col-3 col-md-3"></div>
         </header>
+        <!-- header ends -->
 
-
+        <!-- form starts -->
         <form class="mx-3">
           <!-- Title -->
           <div class="form-group form-floating">
@@ -61,6 +60,7 @@
             </select>
             <label class="mb-1" for="floatingListConsole">Console</label>
           </div>
+          <!-- Condition select -->
           <div class="form-group form-floating">
             <select class="form-select" id="floatingListCondition">
               <option disabled selected>Please Select</option>
@@ -78,18 +78,20 @@
           </div>
           <!-- Description -->
           <div class="form-group form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingListDescription" style="height: 100px"></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingListDescription"
+              style="height: 100px"></textarea>
             <label for="floatingListDescription">Description</label>
           </div>
-
+          <!-- confirm button -->
           <button id='listItem' type="submit" class=" login-btn btn btn-warning btn-block my-3">List Item</button>
         </form>
+        <!-- form ends -->
       </div>
     </div>
-    <!-- Container ends -->
   </div>
+  <!-- Container ends -->
 
-  <!-- modal content starts -->
+  <!-- confirm modal content starts -->
   <div class="modal fade" id="listConfirmationModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -107,12 +109,11 @@
       </div>
     </div>
   </div>
-  <!-- modal content ends -->
+  <!-- confirm modal content ends -->
 
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
   <script src="node_modules/animejs/lib/anime.min.js"></script>
-  <script src="node_modules/jquery/dist/jquery.min.js">
-  </script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="js/custom.js"></script>
 </body>
 
