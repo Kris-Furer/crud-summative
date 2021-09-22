@@ -343,7 +343,7 @@ $(document).ready(function() {
 
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
             <div value= "${productsFromMongo[i].name}" class="card-body">
-              <h5 class="card-title">${productsFromMongo[i].name}</h5>
+              <h5 class="card-title font-weight-bold">${productsFromMongo[i].name}</h5>
               <p class="price">${productsFromMongo[i].price}</p>
               <p class="console">${productsFromMongo[i].console}</p>
               <p class="genre">${productsFromMongo[i].genre}</p>
