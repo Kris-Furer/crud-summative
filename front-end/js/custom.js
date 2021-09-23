@@ -270,6 +270,7 @@ $(document).ready(function() {
                 } //else Ends
                 $("input[data-id='" + postID + "']").val('');
                 $(".commentBox[data-id='" + postID + "']").append(`<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
+                showAllResults();
               }, //success Ends
               error: function() {} //error Ends
             }) //ajax Ends
