@@ -182,13 +182,12 @@ $(document).ready(function() {
           results.appendChild(productCard);
           productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3', 'anime-card');
           // fill the cards content
-          productCard.value = productsFromMongo[i].name
+          productCard.value = productsFromMongo[i].name;
 
-          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop2">
+          productCard.innerHTML = `<div class="card h-100">
 
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
-            <div value= "${productsFromMongo[i].name}" class="card-body">
+            <div data-name="${productsFromMongo[i].name}" class="card-body viewItem">
               <h4 class="card-title fw-bold">${productsFromMongo[i].name}</h4>
               <p class="price">$${productsFromMongo[i].price}</p>
               <span class="fw-bold">Console</span>
@@ -196,7 +195,7 @@ $(document).ready(function() {
               <span class="fw-bold">Genre</span>
               <p class="genre">${productsFromMongo[i].genre}</p>
 
-              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
+              <p data-name="${productsFromMongo[i].name}" class="card-text viewItem" >${productsFromMongo[i].description}</p>
             </div>
           </div>
           `;
@@ -212,7 +211,7 @@ $(document).ready(function() {
             }),
             duration: 2000,
             loop: false
-          }) //animation ends
+          }); //animation ends
         } //for loop ends
 
         // Find which card the user has clicked
@@ -225,7 +224,7 @@ $(document).ready(function() {
                 var comments = document.querySelector('.comment-accordion');
                 selection = i;
                 $("#productModal").modal("show");
-                viewProduct()
+                viewProduct();
 
                 let commentElements = [];
                 if (productsFromMongo[i].comments !== null) {
@@ -269,10 +268,11 @@ $(document).ready(function() {
                   alert('updated');
                 } //else Ends
                 $("input[data-id='" + postID + "']").val('');
-                $(".commentBox[data-id='" + postID + "']").append(`<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`)
+                $(".commentBox[data-id='" + postID + "']").append(`<li>${userComment}</li> <p class="text-muted">by: ${sessionStorage.getItem('userName')}</p>`);
+                showAllResults();
               }, //success Ends
               error: function() {} //error Ends
-            }) //ajax Ends
+            }); //ajax Ends
           } //if Ends
         }); //event listener Ends
 
@@ -303,17 +303,17 @@ $(document).ready(function() {
   // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   $('#setFilter').click(function() {
-    selectedGenre =  document.querySelector('#floatingFilterGenre').value
-    selectedConsole =  document.querySelector('#floatingFilterConsole').value
-    selectedCondition =  document.querySelector('#floatingFilterCondition').value
+    selectedGenre =  document.querySelector('#floatingFilterGenre').value;
+    selectedConsole =  document.querySelector('#floatingFilterConsole').value;
+    selectedCondition =  document.querySelector('#floatingFilterCondition').value;
     if (selectedConsole === "undefined" ) {
-      selectedConsole = undefined
-    };
+      selectedConsole = undefined;
+    }
     if (selectedCondition  === "undefined" ) {
-      selectedCondition  = undefined
+      selectedCondition  = undefined;
     }
     if (selectedGenre  === "undefined" ) {
-      selectedGenre  = undefined
+      selectedGenre  = undefined;
     }
 
 
@@ -330,36 +330,37 @@ $(document).ready(function() {
         var i;
 
         // Create all the cards on the home screen
-        results.innerHTML = ""
+        results.innerHTML = "";
         for (i = 0; i < productsFromMongo.length; i++) {
           // create parent card div for each item
           var productCard = document.createElement("div");
           results.appendChild(productCard);
           productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
-          productCard.value = productsFromMongo[i].name
-          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop2">
+          productCard.value = productsFromMongo[i].name;
+          productCard.innerHTML = `<div class="card h-100">
 
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
-            <div value= "${productsFromMongo[i].name}" class="card-body">
-              <h5 class="card-title font-weight-bold">${productsFromMongo[i].name}</h5>
-              <p class="price">${productsFromMongo[i].price}</p>
+            <div data-name="${productsFromMongo[i].name}" class="card-body viewItem">
+              <h4 class="card-title fw-bold">${productsFromMongo[i].name}</h4>
+              <p class="price">$${productsFromMongo[i].price}</p>
+              <span class="fw-bold">Console</span>
               <p class="console">${productsFromMongo[i].console}</p>
+              <span class="fw-bold">Genre</span>
               <p class="genre">${productsFromMongo[i].genre}</p>
-              <p class="condition">${productsFromMongo[i].condition}</p>
-              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
+
+              <p data-name="${productsFromMongo[i].name}" class="card-text viewItem" >${productsFromMongo[i].description}</p>
             </div>
-          </div>
-          `;
+          </div>`
+          ;
         }
 
       }, // submit success fuction ends
       error: function() {
         console.log("cannot call api");
       }
-    }) //ajax
-  }) // Submit/all products from mongo call ends
+    }); //ajax
+  }); // Submit/all products from mongo call ends
 
 
   // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -390,14 +391,14 @@ $(document).ready(function() {
           listingContainer.appendChild(productCard);
           productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
-          productCard.innerHTML = `<div class="card h-100">
+          productCard.innerHTML =`<div class="card h-100">
                                     <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
                                     <div class="card-body">
                                       <h5 class="card-title">${productsFromMongo[i].name}</h5>
-                                      <p class="price">${productsFromMongo[i].price}</p>
+                                      <p class="price">$${productsFromMongo[i].price}</p>
                                       <p class="console">${productsFromMongo[i].console}</p>
                                       <p class="genre">${productsFromMongo[i].genre}</p>
-                                      <p class="condition">${productsFromMongo[i].Condidtion}</p>
+                                      <p class="condition">${productsFromMongo[i].condition}</p>
                                     </div>
                                     <div class="card-footer bg-transparent align-self-end">
                                       <div class="btn-group" role="group" aria-label="basic outlined example">
