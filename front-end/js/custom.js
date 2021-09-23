@@ -184,8 +184,7 @@ $(document).ready(function() {
           // fill the cards content
           productCard.value = productsFromMongo[i].name;
 
-          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop2">
+          productCard.innerHTML = `<div class="card h-100">
 
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
             <div data-name="${productsFromMongo[i].name}" class="card-body viewItem">
@@ -339,20 +338,21 @@ $(document).ready(function() {
           productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
           productCard.value = productsFromMongo[i].name;
-          productCard.innerHTML = `<div class="card h-100" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop2">
+          productCard.innerHTML = `<div class="card h-100">
 
             <img src="${productsFromMongo[i].image}" data-name="${productsFromMongo[i].name}" class="card-img-top viewItem" alt="Image of game" value = "${productsFromMongo[i].name}">
-            <div value= "${productsFromMongo[i].name}" class="card-body">
-              <h5 class="card-title font-weight-bold">${productsFromMongo[i].name}</h5>
-              <p class="price">${productsFromMongo[i].price}</p>
+            <div data-name="${productsFromMongo[i].name}" class="card-body viewItem">
+              <h4 class="card-title fw-bold">${productsFromMongo[i].name}</h4>
+              <p class="price">$${productsFromMongo[i].price}</p>
+              <span class="fw-bold">Console</span>
               <p class="console">${productsFromMongo[i].console}</p>
+              <span class="fw-bold">Genre</span>
               <p class="genre">${productsFromMongo[i].genre}</p>
-              <p class="condition">${productsFromMongo[i].condition}</p>
-              <p value='${productsFromMongo[i].name}' class="card-text viewItem" >${productsFromMongo[i].description}</p>
+
+              <p data-name="${productsFromMongo[i].name}" class="card-text viewItem" >${productsFromMongo[i].description}</p>
             </div>
-          </div>
-          `;
+          </div>`
+          ;
         }
 
       }, // submit success fuction ends
@@ -391,14 +391,14 @@ $(document).ready(function() {
           listingContainer.appendChild(productCard);
           productCard.classList.add('col-xs-12', 'col-sm-6', 'col-md-4', 'my-3');
           // fill the cards content
-          productCard.innerHTML = `<div class="card h-100">
+          productCard.innerHTML =`<div class="card h-100">
                                     <img src="${productsFromMongo[i].image}" class="card-img-top" alt="...">
                                     <div class="card-body">
                                       <h5 class="card-title">${productsFromMongo[i].name}</h5>
-                                      <p class="price">${productsFromMongo[i].price}</p>
+                                      <p class="price">$${productsFromMongo[i].price}</p>
                                       <p class="console">${productsFromMongo[i].console}</p>
                                       <p class="genre">${productsFromMongo[i].genre}</p>
-                                      <p class="condition">${productsFromMongo[i].Condidtion}</p>
+                                      <p class="condition">${productsFromMongo[i].condition}</p>
                                     </div>
                                     <div class="card-footer bg-transparent align-self-end">
                                       <div class="btn-group" role="group" aria-label="basic outlined example">

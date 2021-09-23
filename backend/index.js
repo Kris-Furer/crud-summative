@@ -50,6 +50,7 @@ app.post('/addProduct', (req, res) => {
     description: req.body.description,
     seller: req.body.seller,
     itemLocation: req.body.itemLocation,
+    condition: req.body.condition,
     user_id: req.body.user_id,
     comments: []
   });
